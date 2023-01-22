@@ -1,0 +1,175 @@
+<!DOCTYPE HTML>
+<!--
+	Solid State by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html lang="es">
+
+<head>
+    <title>Brazo robotico</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript>
+        <link rel="stylesheet" href="assets/css/noscript.css" />
+    </noscript>
+</head>
+
+<body class="is-preload">
+
+    <!-- Page Wrapper -->
+    <div id="page-wrapper">
+
+        <!-- Header -->
+        <header id="header" class="alt">
+            <nav>
+                <a href="#menu">Menu</a>
+            </nav>
+        </header>
+
+        <!-- Menu -->
+        <nav id="menu">
+            <div class="inner">
+                <h2>Menu</h2>
+                <ul class="links">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="index.html#four">Proyectos</a></li>
+                    <li><a href="index.html#footer">Contacto</a></li>
+
+                </ul>
+                <a href="#" class="close">Close</a>
+            </div>
+        </nav>
+
+        <!-- Banner -->
+        <section id="banner">
+            
+        </section>
+        <!-- 
+				<!-- Wrapper -->
+        <section id="wrapper">
+
+            <!-- One -->
+            <section id="one" class="wrapper spotlight style1">
+                <div class="inner">
+                    <a href="#" class="image"><img src="images/DET_OBJ.PNG" alt=""  /></a>
+                    <div class="content">
+                        <h2 class="major">Analisis de imagen </h2>
+                        <p>Para el procesamiento de la imagen se subió a un servidor en la 
+                            tarjeta esp32CAM,permitiendo procesarla con python para despues adaptarla
+                            a un objeto precesable con objetos numpy y CV2, logrando procesar los bordes
+                            con Canny para después de un anaisis encontrar el punto más alto y bajo de la imagen logrando tomar
+                            comlumna base que permitirá central el objeto para lograr tomarlo y ponerlo en otra posición.
+                        </p>
+
+                        <pre>
+                          
+                            <code class="Python">
+def puntos_de_referencia(bordes):
+    # Considerar sacar de while para dismiuir carga computacional
+    y aumentar velocidad de respuesta
+    x, y = np.nonzero(bordes)
+    _, cols = bordes.shape
+    bordes_color = cv2.cvtColor(bordes, cv2.COLOR_GRAY2BGR)
+    try:
+    #cv2.circle(bordes_color, (y[0], x[-1]), 10, (0, 0, 255), 1)
+    cv2.circle(bordes_color, (y[0], x[0]), 10, (0, 0, 255), 1)
+    diferencia = 232-y[0]
+    print(y[0])
+    except IndexError:
+    diferencia = None
+    # Mostramos la imagen en una ventana
+    return(bordes_color, diferencia)
+    # Convertimos la imagen de bordes a BGR para poder dibujar círculos de 
+    colores
+                             </code>
+
+                           
+                        </pre>
+                        
+                       
+                    </div>
+                </div>
+            </section>
+
+            <!-- Two -->
+            <section id="two" class="wrapper alt spotlight style2">
+                <div class="inner">
+                    <a href="#" class="image"><img src="images/HTTP.png" alt="" /></a>
+                    <div class="content">
+                        <h2 class="major">Control de servos</h2>
+                        <p>Para controlar los servos, se compara el punto deseado con el real y, dependiendo de si es un número negativo o
+                        positivo, se hacen las correcciones mediante peticiones HTTP de una cadena que será separada por espacios en el servidor
+                        creado en la tarjeta ESP32CAM. Para solo usar una función, los servos que no cambian su valor entran en un estado
+                        default con un valor -1, el cual el servidor interpretará como mantenimiento del último estado del servo.</p>
+                    <pre>
+                    
+                                                <code class="Python">
+def http_post_servo(servo=-1, servo2=-1, servo3=-1,
+servo4=-1, servo5=-1, time=1):
+    data = {"data": "{} {} {} {} {} ".format(
+    servo, servo2, servo3, servo4, servo5)}
+    # Make the POST request
+    response = requests.post(urlRaiz, data=data)
+    # Check the status code of the response
+    print(response.status_code)
+    if response.status_code == 200:
+    # Print the response content
+    # print(response.text)
+    print('F')
+    else:
+    print("Failed to submit data")
+                                                 </code>
+                    
+                                               
+                                            </pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Three -->
+            <section id="three" class="wrapper spotlight style3">
+                <div class="inner">
+                    <a href="#" class="image"><img src="images/BASE_BRAZO.PNG" alt="" sizes="0.5" /></a>
+                    <div class="content">
+                        <h2 class="major">Diseño de piezas</h2>
+                        <p>Para el diseño del brazo se basó en un robot sumo. En este diseño hubo
+                            un total de 7 piezas, ahorrando filamento y tiempo de impresion.
+                            Para el desarrollo de cada pieza se usó el sofware "Fusion360". Como retoalimentación se sugiere diminuir los mm de la punta para mayor presición en la pieza que permite seder el movimiento del servo al mecanismo. 
+                        </p>
+                       
+                    </div>
+                </div>
+            </section>
+
+            
+           
+
+        </section> 
+        <section id="footer">
+            <div class="inner">
+                
+                <ul class="copyright">
+                    <li>&copy; Untitled Inc. All rights reserved.</li>
+                    <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+                </ul>
+            </div>
+        </section>
+     
+        
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+    
+
+</body>
+
+</html>
