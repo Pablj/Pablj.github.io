@@ -1,0 +1,192 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Proyecto 1 – Simulación de Planificador SJF</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+</head>
+
+<body class="is-preload">
+
+<div id="page-wrapper">
+
+    <!-- Header -->
+    <header id="header">
+        <h1><a href="index.html">Pablo Cruz</a></h1>
+        <nav>
+            <a href="#menu">Menu</a>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="scheduler.html">Scheduler SJF</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <!-- Wrapper -->
+    <section id="wrapper">
+
+        <header>
+            <div class="inner">
+                <h2>Proyecto No. 1</h2>
+                <p>Simulación de Planificador Shortest Job First (SJF)</p>
+                <p>
+                    Sistemas Operativos en Tiempo Real – UNAM<br>
+                    Autores: Pablo Cruz Morales, Adrián Cohen Suárez, Rodrigo Yael Rubio Ortiz
+                </p>
+            </div>
+        </header>
+
+        <div class="wrapper">
+            <div class="inner">
+
+                <!-- Abstract -->
+                <section>
+                    <h3 class="major">Resumen</h3>
+                    <p>
+                        En este proyecto se desarrolla una simulación de un planificador de procesos
+                        basado en el algoritmo <strong>Shortest Job First (SJF)</strong>.
+                        El objetivo es modelar su comportamiento en un entorno controlado,
+                        permitiendo analizar la ejecución de procesos con diferentes cargas de trabajo
+                        e introducir el manejo de <em>quantums</em> y almacenamiento de contexto.
+                    </p>
+                </section>
+
+                <!-- Objetivo -->
+                <section>
+                    <h3 class="major">Objetivo</h3>
+                    <p>
+                        Comprender el funcionamiento de los sistemas operativos mediante la simulación
+                        de un planificador de procesos, analizando la gestión del CPU, el uso de quantums
+                        y la recuperación del contexto de ejecución.
+                    </p>
+                </section>
+
+                <!-- Introducción -->
+                <section>
+                    <h3 class="major">Introducción</h3>
+                    <p>
+                        El planificador (scheduler) es una de las funciones fundamentales de un sistema
+                        operativo, ya que decide qué proceso obtiene el uso del CPU.
+                        Existen múltiples algoritmos de planificación, entre los más relevantes:
+                    </p>
+                    <ul>
+                        <li>Round Robin</li>
+                        <li>First Come First Served (FCFS)</li>
+                        <li>Shortest Job First (SJF)</li>
+                        <li>Priority Scheduling</li>
+                    </ul>
+
+                    <p>
+                        En el algoritmo SJF se da prioridad al proceso con menor tiempo de ejecución,
+                        lo cual minimiza el tiempo promedio de espera.
+                    </p>
+
+                    <span class="image fit">
+                        <img src="images/SFJ.jpg" alt="Ejemplo de planificación SJF" />
+                    </span>
+                </section>
+
+                <!-- Planteamiento -->
+                <section>
+                    <h3 class="major">Planteamiento del Problema</h3>
+                    <p>
+                        El proyecto parte del modelado básico del planificador SJF y posteriormente
+                        introduce modificaciones académicas, como el uso de <strong>quantums</strong>.
+                        Cuando un proceso no finaliza dentro de su quantum, su contexto debe ser
+                        almacenado para continuar su ejecución posteriormente.
+                    </p>
+
+                    <span class="image fit">
+                        <img src="images/Proceso_SFJ.jpg" alt="Ejecución con quantums" />
+                    </span>
+                </section>
+
+                <!-- Desarrollo -->
+                <section>
+                    <h3 class="major">Desarrollo</h3>
+                    <p>
+                        Se implementaron diez procesos que realizan operaciones vectoriales sobre
+                        arreglos de tamaño 1000. Cada proceso se mide en tiempo de ejecución para
+                        determinar su prioridad dentro del planificador.
+                    </p>
+
+                    <h4>Medición de tiempo de ejecución</h4>
+                    <pre><code class="language-c">
+for (int i = 0; i < 10; i++) {
+    start = clock();
+    procesos[i](A, B);
+    end = clock();
+    tiempos[i] = ((double)(end - start)) / CLOCKS_PER_SEC;
+}
+                    </code></pre>
+
+                    <h4>Asignación de Quantums</h4>
+                    <pre><code class="language-c">
+void asignar_quantums(int quantum) {
+    datos.suma_vectores.quantum = quantum;
+    datos.resta_vectores.quantum = quantum;
+    datos.producto_vectores.quantum = quantum;
+    datos.division_vectores.quantum = quantum;
+}
+                    </code></pre>
+                </section>
+
+                <!-- Resultados -->
+                <section>
+                    <h3 class="major">Resultados Experimentales</h3>
+                    <p>
+                        La simulación permite observar cómo los procesos más cortos se ejecutan
+                        primero y cómo aquellos que exceden su quantum almacenan su contexto para
+                        continuar posteriormente.
+                    </p>
+
+                    <span class="image fit">
+                        <img src="images/C_C3.jpg" alt="Ejecución del planificador" />
+                    </span>
+                </section>
+
+                <!-- Conclusión -->
+                <section>
+                    <h3 class="major">Conclusiones</h3>
+                    <p>
+                        La simulación del planificador SJF con quantums permitió comprender
+                        de manera práctica conceptos clave de los sistemas operativos en tiempo real,
+                        como la planificación, la interrupción de procesos y la recuperación de contexto.
+                    </p>
+                </section>
+
+                <!-- Referencias -->
+                <section>
+                    <h3 class="major">Referencias</h3>
+                    <ul>
+                        <li>Escobar, L. E. (2024). <em>Sistemas Operativos en Tiempo Real</em>.</li>
+                        <li>Kernighan, B. & Ritchie, D. <em>The C Programming Language</em>.</li>
+                    </ul>
+                </section>
+
+            </div>
+        </div>
+
+    </section>
+
+</div>
+
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery.scrollex.min.js"></script>
+<script src="assets/js/browser.min.js"></script>
+<script src="assets/js/breakpoints.min.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/main.js"></script>
+
+</body>
+</html>
