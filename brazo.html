@@ -44,8 +44,11 @@
 
         <!-- Banner -->
         <section id="banner">
-            
-        </section>
+        <div class="inner">
+            <h2>Brazo Robótico con Visión Artificial</h2>
+            <p>Proyecto desarrollado en 6º semestre de Ingeniería Eléctrica Electrónica</p>
+        </div>
+</section>
         <!-- 
 				<!-- Wrapper -->
         <section id="wrapper">
@@ -55,14 +58,15 @@
                 <div class="inner">
                     <a href="#" class="image"><img src="images/DET_OBJ.PNG" alt=""  /></a>
                     <div class="content">
-                        <h2 class="major">Analisis de imagen </h2>
-                        <p>Para el procesamiento de la imagen se subió a un servidor en la 
-                            tarjeta esp32CAM,permitiendo procesarla con python para despues adaptarla
-                            a un objeto precesable con objetos numpy y CV2, logrando procesar los bordes
-                            con Canny para después de un anaisis encontrar el punto más alto y bajo de la imagen logrando tomar
-                            comlumna base que permitirá central el objeto para lograr tomarlo y ponerlo en otra posición.
-                        </p>
+                        <h2 class="major">Análisis de Imagen</h2>
+                        <p>
+                        Proyecto desarrollado durante el 6º semestre de la carrera. 
+                        Se implementó un sistema de visión utilizando una ESP32-CAM como servidor web para la captura y envío de imágenes. 
+                        Las imágenes fueron procesadas en Python mediante las librerías NumPy y OpenCV.
 
+                        Se aplicó el algoritmo de detección de bordes Canny para identificar contornos del objeto. 
+                        Posteriormente, se realizó un análisis de los puntos extremos (superior e inferior) con el objetivo de calcular una referencia en la columna base, permitiendo centrar el objeto y facilitar su manipulación mediante el brazo robótico.
+                        </p>
                         <pre>
                           
                             <code class="Python">
@@ -98,11 +102,14 @@ def puntos_de_referencia(bordes):
                 <div class="inner">
                     <a href="#" class="image"><img src="images/HTTP.png" alt="" /></a>
                     <div class="content">
-                        <h2 class="major">Control de servos</h2>
-                        <p>Para controlar los servos, se compara el punto deseado con el real y, dependiendo de si es un número negativo o
-                        positivo, se hacen las correcciones mediante peticiones HTTP de una cadena que será separada por espacios en el servidor
-                        creado en la tarjeta ESP32CAM. Para solo usar una función, los servos que no cambian su valor entran en un estado
-                        default con un valor -1, el cual el servidor interpretará como mantenimiento del último estado del servo.</p>
+                        <h2 class="major">Control de Servomotores</h2>
+                        <p>
+                        El control de posición de los servomotores se realizó mediante comparación entre la posición deseada y la posición detectada por el sistema de visión. 
+                        Dependiendo del error calculado (positivo o negativo), se enviaban correcciones a través de peticiones HTTP hacia un servidor implementado en la ESP32-CAM.
+
+                        Se diseñó una única función para el envío de comandos, donde los servos que no requieren modificación reciben el valor -1, el cual es interpretado por el servidor como mantenimiento de la última posición. 
+                        Este enfoque permitió simplificar la lógica de control y optimizar la comunicación.
+                        </p>
                     <pre>
                     
                                                 <code class="Python">
@@ -133,18 +140,59 @@ servo4=-1, servo5=-1, time=1):
                 <div class="inner">
                     <a href="#" class="image"><img src="images/BASE_BRAZO.PNG" alt="" sizes="0.5" /></a>
                     <div class="content">
-                        <h2 class="major">Diseño de piezas</h2>
-                        <p>Para el diseño del brazo se basó en un robot sumo. En este diseño hubo
-                            un total de 7 piezas, ahorrando filamento y tiempo de impresion.
-                            Para el desarrollo de cada pieza se usó el sofware "Fusion360". Como retoalimentación se sugiere diminuir los mm de la punta para mayor presición en la pieza que permite seder el movimiento del servo al mecanismo. 
+                        <h2 class="major">Diseño Mecánico de Piezas</h2>
+                        <p>
+                        El diseño estructural del brazo robótico se basó en el concepto de un robot tipo sumo. 
+                        Se modelaron un total de 9 piezas optimizadas para reducir el consumo de filamento y el tiempo de impresión 3D.
+
+                        El modelado se realizó en Autodesk Fusion 360, considerando restricciones mecánicas, transmisión de movimiento y acoplamiento con servomotores.
+
+                        Como mejora futura, se recomienda reducir algunos milímetros en la punta del mecanismo de transmisión para aumentar la precisión y minimizar holguras en el movimiento.
                         </p>
                        
                     </div>
                 </div>
             </section>
 
-            
-           
+            <section class="wrapper alt style1">
+    <div class="inner">
+        <h2 class="major">Resultados</h2>
+        <p>
+        El sistema logró identificar la posición del objeto en tiempo real y ajustar el movimiento del brazo robótico para tomarlo y reubicarlo correctamente.
+        Se validó la integración entre visión artificial, comunicación HTTP y control de servomotores, logrando un sistema funcional de manipulación automatizada.
+        </p>
+    </div>
+</section>
+           <section class="wrapper alt style1">
+    <div class="inner">
+        <h2 class="major">Mejoras y Trabajo Futuro</h2>
+        <p>
+        Aunque el sistema logró una manipulación funcional del objeto, se identificaron diversas oportunidades de mejora orientadas a optimizar precisión, estabilidad y suavidad de movimiento.
+        </p>
+
+        <ul>
+            <li>
+            Implementación de un algoritmo de control PID para lograr movimientos más uniformes y reducir oscilaciones en la corrección de posición.
+            </li>
+
+            <li>
+            Integración de control cinemático directo e inverso para mejorar la planificación de trayectorias del brazo robótico.
+            </li>
+
+            <li>
+            Sustitución del control basado en peticiones HTTP por comunicación más eficiente (por ejemplo, WebSocket o protocolo serial optimizado) para reducir latencia.
+            </li>
+
+            <li>
+            Implementación de filtrado digital (media móvil o filtro de Kalman) en la detección de posición para disminuir ruido en la señal visual.
+            </li>
+
+            <li>
+            Optimización estructural del diseño mecánico para reducir holguras y mejorar precisión en el efector final.
+            </li>
+        </ul>
+    </div>
+</section>
 
         </section> 
         <section id="footer">
