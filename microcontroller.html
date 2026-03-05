@@ -2,146 +2,263 @@
 <html lang="es">
 <head>
     <meta charset="utf-8" />
-    <title>Microprocesador 8 bits - NVIC & GPIO</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Extensión de Microprocesador – NVIC & GPIO</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="assets/css/main.css" />
 </head>
 
-<body>
+<body class="is-preload">
 
-<section class="wrapper">
+<!-- Banner -->
+<section id="banner">
     <div class="inner">
-
-        <h1 class="major">Extensión de Microprocesador con NVIC y GPIO en VHDL</h1>
-        <p>
-            Desarrollo e integración de un sistema de interrupciones tipo NVIC
-            en un microprocesador de 8 bits previamente diseñado.
-            El proyecto incluyó modificaciones estructurales en la máquina de control,
-            implementación de guardado/restauración de contexto,
-            extensión del conjunto de instrucciones y validación funcional en Quartus.
-        </p>
-
-        <!-- Arquitectura base -->
-        <h2>Arquitectura base del procesador</h2>
-        <p>
-            El procesador está compuesto por ALU, registros,
-            contador de programa (PC), acumulador (ACC),
-            unidad de control (GCM) y buses de datos/dirección.
-        </p>git push -u origin feature/new-structure-portfolio
-
-        <h3>Diagrama general</h3>
-        <img src="Imagenes/procesador.PNG" alt="Arquitectura general del procesador" width="100%">
-
-        <h3>Diseño a bloques del sistema completo</h3>
-        <img src="Imagenes/image.png" alt="Diseño general a bloques" width="100%">
-
-
-        <!-- Modificación del GCM -->
-        <h2>Modificación del GCM</h2>
-        <p>
-            Se modificó la Máquina de Control General (GCM) para incorporar
-            un estado de pausa que permite detener la ejecución del flujo normal
-            ante la presencia de una interrupción.
-            Se añadió una señal de control externa proveniente del NVIC.
-        </p>
-
-        <h3>Diagrama de estados</h3>
-        <img src="Imagenes/state_diagram.png" alt="Diagrama de estados del GCM" width="100%">
-
-
-        <!-- Diseño del NVIC -->
-        <h2>Diseño del NVIC</h2>
-        <p>
-            El NVIC fue diseñado como una máquina de estados independiente,
-            encargada de:
-        </p>
-
-        <ul>
-            <li>Pausar el GCM</li>
-            <li>Guardar el valor del ACC</li>
-            <li>Guardar la dirección del PC + 1</li>
-            <li>Cargar la dirección de la rutina de interrupción</li>
-            <li>Restaurar el contexto al finalizar</li>
-        </ul>
-
-        <h3>Entidad y bloques del NVIC</h3>
-        <img src="Imagenes/NVVIC.PNG" alt="Entidad del NVIC" width="100%">
-        <img src="Imagenes/NVIC_B.PNG" alt="Bloques del NVIC" width="100%">
-
-        <h3>Máquina de estados</h3>
-        <img src="Imagenes/NVIC_estado.png" alt="Máquina de estados NVIC" width="100%">
-
-        <p>
-            El flujo completo permite la ejecución de la rutina de interrupción
-            sin pérdida de contexto, garantizando la continuidad del programa principal.
-        </p>
-
-
-        <!-- Diseño del GPIO -->
-        <h2>Diseño del GPIO</h2>
-        <p>
-            El GPIO fue diseñado como módulo configurable,
-            permitiendo operación en modo entrada o salida.
-        </p>
-
-        <h3>Entidad del GPIO</h3>
-        <img src="Imagenes/GPIO.PNG" alt="Entidad del GPIO" width="100%">
-
-        <h3>Primer diseño</h3>
-        <img src="Imagenes/GPIO_1.jpg" alt="Primer diseño GPIO" width="100%">
-
-        <h3>Problemas detectados en simulación</h3>
-        <img src="Imagenes/problem.jpg" alt="Problemas en simulación GPIO" width="100%">
-
-        <h3>Rediseño final</h3>
-        <img src="Imagenes/GPIO_2.jpg" alt="Rediseño GPIO" width="100%">
-
-        <p>
-            Se implementó una arquitectura separada
-            para evitar conflictos de alta impedancia y asegurar
-            comportamiento estable.
-        </p>
-
-
-        <!-- Extensión del ISA -->
-        <h2>Extensión del ISA</h2>
-        <p>
-            Se amplió el conjunto de instrucciones del procesador
-            para permitir la configuración del NVIC y GPIO.
-        </p>
-
-        <img src="Imagenes/tabla_instrucciones.png" alt="Tabla de instrucciones extendida" width="100%">
-
-
-        <!-- Resultados -->
-        <h2>Resultados y Validación</h2>
-
-        <h3>GPIO modo entrada</h3>
-        <img src="Imagenes/GPIO_Entrada.PNG" alt="GPIO modo entrada" width="100%">
-
-        <h3>GPIO modo salida</h3>
-        <img src="Imagenes/GPIO_Salida.PNG" alt="GPIO modo salida" width="100%">
-
-        <h3>GPIO como interrupción</h3>
-        <img src="Imagenes/GPIO_NVIC.PNG" alt="GPIO como interrupción" width="100%">
-
-        <p>Las simulaciones verificaron:</p>
-        <ul>
-            <li>Guardado correcto del ACC</li>
-            <li>Almacenamiento del PC + 1</li>
-            <li>Salto a rutina de interrupción</li>
-            <li>Restauración completa del contexto</li>
-        </ul>
-
-        <h2>Conclusión</h2>
-        <p>
-            Este proyecto permitió profundizar en arquitectura de procesadores,
-            control por máquina de estados y manejo de interrupciones a nivel hardware,
-            consolidando conocimientos en diseño digital y modelado en VHDL.
-        </p>
-
+        <h2>Microprocesador de 8 bits con Soporte de Interrupciones</h2>
+        <p>Implementación en VHDL del sistema de interrupciones y control de flujo del procesador</p>
     </div>
 </section>
+
+<!-- Wrapper -->
+<section id="wrapper">
+
+<section class="wrapper style1">
+<div class="inner">
+
+<p>
+Diseño e integración de un controlador de interrupciones tipo NVIC en un 
+microprocesador de 8 bits desarrollado en VHDL. El proyecto implicó 
+modificaciones en la unidad de control, implementación de guardado y 
+restauración de contexto (PC y ACC), extensión del conjunto de instrucciones 
+y validación funcional mediante simulación en Quartus.
+</p>
+
+<hr />
+
+<h2>Arquitectura del Sistema</h2>
+
+<p>
+El sistema se compone de tres bloques principales: Procesador, NVIC y GPIO. 
+El NVIC actúa como controlador de interrupciones, coordinando la pausa del 
+procesador y la restauración del contexto.
+</p>
+
+<div style="display:flex;gap:20px;justify-content:center;flex-wrap:wrap;">
+<img src="images/NVIC/procesador.PNG" style="width:30%;max-width:400px;">
+<img src="images/NVIC/NVIC_B.PNG" style="width:30%;max-width:400px;">
+<img src="images/NVIC/GPIO_R.png" style="width:30%;max-width:400px;">
+</div>
+
+<p>
+El diagrama izquierdo muestra la arquitectura interna del procesador 
+(ALU, PC, ACC, GCM y buses). El diagrama central representa el NVIC 
+con su arquitectura de control y almacenamiento de contexto. El diagrama derecho ilustra el GPIO.
+</p>
+
+<hr />
+
+<h2>Problema Técnico</h2>
+
+<p>
+El procesador original no contaba con soporte para interrupciones externas. 
+Se requería implementar un mecanismo capaz de:
+</p>
+
+<ul>
+<li>Detectar eventos externos mediante GPIO</li>
+<li>Detener la ejecución sin pérdida de contexto</li>
+<li>Guardar PC + 1 y ACC</li>
+<li>Ejecutar una rutina de servicio</li>
+<li>Restaurar completamente el estado previo</li>
+</ul>
+
+<hr />
+
+<h2>Diseño del NVIC</h2>
+
+<p>
+El NVIC fue implementado como una máquina de estados finitos (FSM) de 8 estados.
+</p>
+
+<ul>
+<li>Pausar la Máquina de Control General (GCM)</li>
+<li>Respaldar el valor del ACC</li>
+<li>Guardar la dirección del PC incrementada</li>
+<li>Cargar la dirección de la rutina de interrupción</li>
+<li>Restaurar el contexto al finalizar</li>
+</ul>
+
+<div style="text-align:center;">
+<img src="images/NVIC/state_diagram.png" style="width:40%;max-width:900px;">
+</div>
+
+<p>
+La señal de pausa fue implementada utilizando registros tipo T.
+</p>
+
+<hr />
+
+<h2>Diseño del GPIO</h2>
+
+<p>
+El GPIO fue desarrollado como módulo configurable en modo entrada o salida.
+</p>
+
+<div style="text-align:center;">
+<img src="images/NVIC/GPIO_Q.png" style="width:75%;max-width:900px;">
+</div>
+
+<p>
+Durante la simulación se detectaron problemas de alta impedancia,
+resueltos mediante un rediseño de la arquitectura interna.
+</p>
+
+<hr />
+
+<h2>Extensión del ISA</h2>
+
+<ul>
+<li>Habilitar y deshabilitar interrupciones</li>
+<li>Limpiar bandera de interrupción</li>
+<li>Configurar GPIO como entrada o salida</li>
+<li>Habilitar o deshabilitar el reloj del GPIO</li>
+</ul>
+
+<hr />
+
+<h2 class="major">Validación</h2>
+
+<p>
+Se realizaron simulaciones funcionales para verificar el comportamiento del sistema
+en distintos modos de operación del GPIO y durante la ejecución de interrupciones.
+</p>
+
+<h3>GPIO configurado como Entrada</h3>
+
+<div style="text-align:center; margin: 30px 0;">
+    <img src="images/NVIC/GPIO_Entrada.PNG"
+         alt="GPIO modo entrada"
+         style="width:55%; max-width:900px;height: 55%;">
+</div>
+
+<p>
+En esta simulación el GPIO se configura como entrada. Se observa cómo el valor leído
+desde el GPIO (60) es cargado al procesador y posteriormente se suma con el valor
+9 almacenado en la memoria de datos, obteniendo como resultado el valor 69.
+</p>
+
+<hr />
+
+<h3>GPIO configurado como Salida</h3>
+
+<div style="text-align:center; margin: 30px 0;">
+    <img src="images/NVIC/GPIO_Salida.PNG"
+         alt="GPIO modo salida"
+         style="width:55%; max-width:900px;height: 55%;">
+</div>
+
+<p>
+En este escenario el GPIO se configura como salida, permitiendo mostrar en sus
+pines el contenido del registro acumulador (ACC). Se puede observar que las
+señales de salida del ACC y del GPIO coinciden una vez realizada la configuración
+del periférico.
+</p>
+
+<hr />
+
+<h3>Ejecución de Interrupción</h3>
+
+<div style="text-align:center; margin: 30px 0;">
+    <img src="images/NVIC/GPIO_NVIC.PNG"
+         alt="Ejecución de interrupción"
+         style="width:55%; max-width:900px;height: 55%;">
+</div>
+
+<p>
+Finalmente, el GPIO se configura nuevamente como entrada y se habilita el
+mecanismo de interrupción. Durante la activación de la interrupción se observa
+el almacenamiento de la dirección <strong>PC + 1</strong> junto con el contenido
+del registro <strong>ACC</strong>, permitiendo ejecutar la rutina de servicio
+sin perder el estado del programa principal.
+</p>
+
+<p>
+Una vez finalizada la rutina de interrupción, el sistema restaura correctamente
+el contexto del procesador y continúa la ejecución normal del programa.
+</p>
+
+<hr />
+
+<h2>Tecnologías Utilizadas</h2>
+
+<ul>
+<li>VHDL (RTL)</li>
+<li>Intel Quartus</li>
+<li>Diseño de máquinas de estados</li>
+<li>Arquitectura de CPU</li>
+<li>Simulación funcional</li>
+</ul>
+
+
+<hr />
+<h2 class="major">Conclusión</h2>
+
+<p>
+En este proyecto fue fundamental seguir un proceso de diseño estructurado.
+El uso de diagramas de bloques y máquinas de estados permitió describir
+de forma clara la arquitectura del sistema y facilitar la comprensión
+del funcionamiento del controlador de interrupciones.
+</p>
+
+<p>
+El desarrollo e integración de los módulos NVIC y GPIO en el microprocesador
+permitió profundizar en conceptos de arquitectura digital a bajo nivel,
+incluyendo el manejo de interrupciones, el guardado y restauración de
+contexto, y la coordinación entre periféricos y la unidad de control.
+</p>
+
+<p>
+Además de fortalecer el entendimiento del diseño RTL en VHDL, este proyecto
+proporcionó experiencia en metodologías de desarrollo y documentación de
+sistemas digitales, habilidades clave para el diseño de futuros sistemas
+embebidos y arquitecturas de procesador.
+</p>
+<hr />
+
+
+<h2 class="major">Documentación del Proyecto</h2>
+
+<p>
+Si deseas revisar el desarrollo completo del proyecto, incluyendo
+la arquitectura detallada, diagramas de estados, descripción del ISA
+y resultados de simulación, puedes consultar el documento técnico completo.
+</p>
+
+<div style="text-align:center; margin:40px 0;">
+
+<a href="docs/NVIC/NVIC_Nw.pdf"
+   target="_blank"
+   class="button primary">
+
+Ver documento completo (PDF)
+
+</a>
+
+</div>
+
+<p style="text-align:center;">
+El documento incluye la descripción completa del diseño,
+diagramas de arquitectura, simulaciones funcionales y
+explicaciones detalladas del funcionamiento del sistema.
+</p>
+</div>
+</section>
+
+<!-- Scripts (activan animaciones de la plantilla) -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery.scrollex.min.js"></script>
+<script src="assets/js/browser.min.js"></script>
+<script src="assets/js/breakpoints.min.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/main.js"></script>
 
 </body>
 </html>
