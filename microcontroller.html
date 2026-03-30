@@ -41,10 +41,19 @@ El NVIC actúa como controlador de interrupciones, coordinando la pausa del
 procesador y la restauración del contexto.
 </p>
 
-<div style="display:flex;gap:20px;justify-content:center;flex-wrap:wrap;">
-<img src="images/NVIC/procesador.PNG" style="width:30%;max-width:400px;">
-<img src="images/NVIC/NVIC_B.PNG" style="width:30%;max-width:400px;">
-<img src="images/NVIC/GPIO_R.png" style="width:30%;max-width:400px;">
+<div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+    <div style="flex: 1; min-width: 280px; max-width: 400px; text-align: center;">
+        <img src="images/NVIC/procesador.PNG" style="width: 100%; height: auto; border-radius: 8px;">
+        <p><small>Procesador</small></p>
+    </div>
+    <div style="flex: 1; min-width: 280px; max-width: 400px; text-align: center;">
+        <img src="images/NVIC/NVIC_B.PNG" style="width: 100%; height: auto; border-radius: 8px;">
+        <p><small>NVIC</small></p>
+    </div>
+    <div style="flex: 1; min-width: 280px; max-width: 400px; text-align: center;">
+        <img src="images/NVIC/GPIO_R.png" style="width: 100%; height: auto; border-radius: 8px;">
+        <p><small>GPIO</small></p>
+    </div>
 </div>
 
 <p>
@@ -86,8 +95,10 @@ El NVIC fue implementado como una máquina de estados finitos (FSM) de 8 estados
 <li>Restaurar el contexto al finalizar</li>
 </ul>
 
-<div style="text-align:center;">
-<img src="images/NVIC/state_diagram.png" style="width:40%;max-width:900px;">
+<div style="text-align: center; margin: 30px 0;">
+    <img src="images/NVIC/state_diagram.png" 
+         alt="Diagrama de estados" 
+         style="width: 100%; max-width: 800px; height: auto; border: 1px solid #ddd;">
 </div>
 
 <p>
@@ -101,9 +112,10 @@ La señal de pausa fue implementada utilizando registros tipo T.
 <p>
 El GPIO fue desarrollado como módulo configurable en modo entrada o salida.
 </p>
-
-<div style="text-align:center;">
-<img src="images/NVIC/GPIO_Q.png" style="width:75%;max-width:900px;">
+<div style="text-align: center; margin: 30px 0;">
+    <img src="images/NVIC/GPIO_Q.png" 
+         alt="Diagrama de GPIO" 
+         style="width: 100%; max-width: 800px; height: auto; border: 1px solid #ddd;">
 </div>
 
 <p>
@@ -132,12 +144,12 @@ en distintos modos de operación del GPIO y durante la ejecución de interrupcio
 </p>
 
 <h3>GPIO configurado como Entrada</h3>
-
-<div style="text-align:center; margin: 30px 0;">
-    <img src="images/NVIC/GPIO_Entrada.PNG"
-         alt="GPIO modo entrada"
-         style="width:55%; max-width:900px;height: 55%;">
+<div style="text-align: center; margin: 30px 0;">
+    <img src="images/NVIC/GPIO_Entrada.PNG" 
+         alt="Diagrama de GPIO en modo entrada" 
+         style="width: 100%; max-width: 800px; height: auto; border: 1px solid #ddd;">
 </div>
+
 
 <p>
 En esta simulación el GPIO se configura como entrada. Se observa cómo el valor leído
@@ -148,11 +160,10 @@ desde el GPIO (60) es cargado al procesador y posteriormente se suma con el valo
 <hr />
 
 <h3>GPIO configurado como Salida</h3>
-
-<div style="text-align:center; margin: 30px 0;">
-    <img src="images/NVIC/GPIO_Salida.PNG"
-         alt="GPIO modo salida"
-         style="width:55%; max-width:900px;height: 55%;">
+<div style="text-align: center; margin: 30px 0;">
+    <img src="images/NVIC/GPIO_Salida.PNG" 
+         alt="Salida GPIO configurado como salida" 
+         style="width: 100%; max-width: 800px; height: auto; border: 1px solid #ddd;">
 </div>
 
 <p>
@@ -165,12 +176,12 @@ del periférico.
 <hr />
 
 <h3>Ejecución de Interrupción</h3>
-
-<div style="text-align:center; margin: 30px 0;">
-    <img src="images/NVIC/GPIO_NVIC.PNG"
-         alt="Ejecución de interrupción"
-         style="width:55%; max-width:900px;height: 55%;">
+<div style="text-align: center; margin: 30px 0;">
+    <img src="images/NVIC/GPIO_NVIC.PNG" 
+         alt="Diagrama de estados" 
+         style="width: 100%; max-width: 800px; height: auto; border: 1px solid #ddd;">
 </div>
+
 
 <p>
 Finalmente, el GPIO se configura nuevamente como entrada y se habilita el
