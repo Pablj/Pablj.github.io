@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pablo Cruz — Embedded Systems Engineer</title>
+    <meta name="description" content="Portfolio de ingeniería en sistemas embebidos, IoT y desarrollo de firmware." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav id="navbar">
+    <div class="nav-logo">PC<span>/</span>ESE</div>
+    <ul class="nav-links">
+        <li><a href="#about">Perfil</a></li>
+        <li><a href="#projects">Proyectos</a></li>
+        <li><a href="#contact">Contacto</a></li>
+    </ul>
+    <a href="mailto:pablj5577@gmail.com" class="nav-cta">Disponible</a>
+    <button class="nav-burger" id="navBurger" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
+
+<!-- Mobile drawer -->
+<div class="mobile-drawer" id="mobileDrawer">
+    <button class="drawer-close" id="drawerClose">✕</button>
+    <ul>
+        <li><a href="#about">Perfil</a></li>
+        <li><a href="#projects">Proyectos</a></li>
+        <li><a href="#contact">Contacto</a></li>
+        <li><a href="mailto:pablj5577@gmail.com" class="drawer-cta">Disponible →</a></li>
+    </ul>
+</div>
+<div class="drawer-overlay" id="drawerOverlay"></div>
+
+<!-- ── HERO ── -->
+<section id="hero">
+    <div class="hero-content">
+        <p class="hero-tag">Embedded Systems Engineer — México</p>
+        <h1>PABLO<span class="accent-line">CRUZ</span></h1>
+        <p class="hero-sub">
+            Construyo sistemas que viven en el <strong>hardware</strong>.<br>
+            Especializado en <strong>RTOS</strong>, comunicación <strong>IoT</strong> (MQTT, LoRa),
+            firmware de alta confiabilidad y arquitecturas distribuidas embebidas.
+        </p>
+        <div class="hero-actions">
+            <a href="#projects" class="btn-primary">Ver proyectos</a>
+            <a href="assets/pdf/cv/PabloCruzMorales_EmbeddedEngineer.pdf" class="btn-ghost">Descargar CV</a>
+        </div>
+    </div>
+    <div class="hero-index" aria-hidden="true">ESE</div>
+    <div class="hero-scroll" aria-hidden="true">
+        <div class="scroll-line"></div>
+        scroll
+    </div>
+</section>
+
+<!-- ── STATS STRIP ── -->
+<div class="stats-strip reveal">
+    <div class="stat">
+        <div class="stat-num">04<span>+</span></div>
+        <div class="stat-label">Proyectos destacados</div>
+    </div>
+    <div class="stat">
+        <div class="stat-num">8<span>+</span></div>
+        <div class="stat-label">Tecnologías dominadas</div>
+    </div>
+    <div class="stat">
+        <div class="stat-num">ESP<span>32</span></div>
+        <div class="stat-label">Plataforma principal</div>
+    </div>
+    <div class="stat">
+        <div class="stat-num">VHDL<span>.</span></div>
+        <div class="stat-label">Hardware description</div>
+    </div>
+</div>
+
+<!-- ── ABOUT ── -->
+<section id="about">
+    <div class="about-text">
+        <div class="section-header reveal">
+            <span class="section-num">01 —</span>
+            <h2>PERFIL</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="reveal">
+            <p>
+                Ingeniero en sistemas embebidos con enfoque en <strong>rendimiento determinístico</strong>,
+                confiabilidad industrial y desarrollo de firmware de producción. Mi trabajo vive en
+                la intersección entre el hardware y el software de bajo nivel.
+            </p>
+            <p>
+                Experiencia construyendo desde <strong>microcontroladores personalizados en VHDL</strong>
+                hasta pipelines de seguridad en Kubernetes y brazos robóticos con visión artificial.
+                Cada proyecto está orientado a resolver un problema real con soluciones elegantes y escalables.
+            </p>
+        </div>
+    </div>
+
+    <div class="skills-grid reveal">
+        <div class="skill-card">
+            <div class="skill-icon">⬡</div>
+            <div class="skill-title">Firmware</div>
+            <div class="skill-tags">
+                <span class="tag">C/C++</span>
+                <span class="tag">RTOS</span>
+                <span class="tag">FreeRTOS</span>
+                <span class="tag">ESP-IDF</span>
+            </div>
+        </div>
+        <div class="skill-card">
+            <div class="skill-icon">◈</div>
+            <div class="skill-title">Hardware</div>
+            <div class="skill-tags">
+                <span class="tag">VHDL</span>
+                <span class="tag">Vivado</span>
+                <span class="tag">FPGA</span>
+                <span class="tag">GPIO</span>
+            </div>
+        </div>
+        <div class="skill-card">
+            <div class="skill-icon">⟁</div>
+            <div class="skill-title">IoT & Comms</div>
+            <div class="skill-tags">
+                <span class="tag">MQTT</span>
+                <span class="tag">LoRa</span>
+                <span class="tag">ESP32</span>
+                <span class="tag">BLE</span>
+            </div>
+        </div>
+        <div class="skill-card">
+            <div class="skill-icon">◎</div>
+            <div class="skill-title">Cloud & DevOps</div>
+            <div class="skill-tags">
+                <span class="tag">Kubernetes</span>
+                <span class="tag">Docker</span>
+                <span class="tag">Python</span>
+                <span class="tag">Linux</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── PROJECTS ── -->
+<section id="projects">
+    <div class="section-header reveal">
+        <span class="section-num">02 —</span>
+        <h2>PROYECTOS</h2>
+        <div class="section-line"></div>
+    </div>
+
+    <div class="projects-grid">
+
+        <!-- Featured -->
+        <article class="project-card featured reveal">
+            <div class="featured-body">
+                <div class="project-num"><span>01</span> / 04 — Hardware Design</div>
+                <h3>DISEÑO DE MICROCONTROLADOR EN VHDL</h3>
+                <p class="project-desc">
+                    Implementación completa de un microcontrolador de 8 bits con soporte
+                    para interrupciones mediante arquitectura tipo NVIC. Incluye módulos GPIO,
+                    gestión de eventos externos y pipeline de instrucciones personalizado.
+                </p>
+                <div class="project-stack">
+                    <span class="stack-tag">VHDL</span>
+                    <span class="stack-tag">Vivado</span>
+                    <span class="stack-tag">FPGA</span>
+                    <span class="stack-tag">NVIC</span>
+                    <span class="stack-tag">Digital Design</span>
+                </div>
+                <a href="projects/nvic.html" class="project-link">Ver proyecto</a>
+            </div>
+            <div class="featured-code">
+                <div class="code-label">Arquitectura NVIC</div>
+                <pre class="code-block"><span class="c-comment">-- 8-bit ALU core</span>
+<span class="c-key">entity</span> alu_core <span class="c-key">is</span>
+  <span class="c-key">port</span>(
+    clk  : <span class="c-key">in</span>    std_logic;
+    irq  : <span class="c-key">in</span>    std_logic;
+    data : <span class="c-key">inout</span> bus_8
+  );
+<span class="c-key">end</span> alu_core;</pre>
+            </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="project-card reveal">
+            <div class="project-num"><span>02</span> / 04 — Cloud Security</div>
+            <h3>KUBERNETES HARDENING</h3>
+            <p class="project-desc">
+                Implementación de prácticas avanzadas de seguridad en Kubernetes: RBAC,
+                segmentación de red con NetworkPolicies, control de recursos y auditoría
+                continua. Stack EFK integrado para observabilidad y análisis de logs.
+            </p>
+            <div class="project-stack">
+                <span class="stack-tag">Kubernetes</span>
+                <span class="stack-tag">RBAC</span>
+                <span class="stack-tag">EFK Stack</span>
+                <span class="stack-tag">Docker</span>
+                <span class="stack-tag">Helm</span>
+            </div>
+            <a href="projects/k8s.html" class="project-link">Ver proyecto</a>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="project-card reveal">
+            <div class="project-num"><span>03</span> / 04 — Robotics & AI</div>
+            <h3>BRAZO ROBÓTICO CON VISIÓN ARTIFICIAL</h3>
+            <p class="project-desc">
+                Sistema de control embebido para robot de 5 GDL usando ESP32-CAM.
+                Procesamiento de imágenes en servidor Python para toma de decisiones
+                autónoma en tiempo real con integración bidireccional hardware-software.
+            </p>
+            <div class="project-stack">
+                <span class="stack-tag">ESP32-CAM</span>
+                <span class="stack-tag">Python</span>
+                <span class="stack-tag">OpenCV</span>
+                <span class="stack-tag">MQTT</span>
+                <span class="stack-tag">Servo PWM</span>
+            </div>
+            <a href="projects/robotic-arm.html" class="project-link">Ver proyecto</a>
+        </article>
+
+        <!-- Card 4 -->
+        <article class="project-card reveal">
+            <div class="project-num"><span>04</span> / 04 — OS Simulation</div>
+            <h3>SIMULADOR DE PLANIFICADOR SJF</h3>
+            <p class="project-desc">
+                Simulación en C de un sistema operativo con algoritmo Shortest Job First
+                preemptivo. Análisis detallado de tiempos de espera, turnaround y
+                estadísticas de rendimiento del sistema.
+            </p>
+            <div class="project-stack">
+                <span class="stack-tag">C</span>
+                <span class="stack-tag">SJF</span>
+                <span class="stack-tag">OS Concepts</span>
+                <span class="stack-tag">Scheduling</span>
+            </div>
+            <a href="projects/scheduler.html" class="project-link">Ver proyecto</a>
+        </article>
+
+    </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section id="contact">
+    <div class="contact-text">
+        <div class="section-header reveal">
+            <span class="section-num">03 —</span>
+            <h2>CONTACTO</h2>
+            <div class="section-line"></div>
+        </div>
+        <p class="reveal">
+            Disponible para proyectos de sistemas embebidos, desarrollo de firmware
+            e integración IoT. Abierto a colaboraciones técnicas y oportunidades de tiempo completo.
+        </p>
+        <ul class="contact-list reveal">
+            <li>
+                <span class="c-label">Email</span>
+                <a href="mailto:pablj5577@gmail.com">pablj5577@gmail.com</a>
+            </li>
+            <li>
+                <span class="c-label">Teléfono</span>
+                <a href="tel:+525554799176">(+52) 55 5479 9176</a>
+            </li>
+            <li>
+                <span class="c-label">LinkedIn</span>
+                <a href="https://www.linkedin.com/in/pablo-cruz-84450a213/" target="_blank" rel="noopener">pablo-cruz-84450a213</a>
+            </li>
+            <li>
+                <span class="c-label">Base</span>
+                <span class="c-static">Ciudad de México, MX</span>
+            </li>
+        </ul>
+    </div>
+
+    <form class="contact-form reveal" id="contactForm" novalidate>
+        <div class="form-row">
+            <div class="field">
+                <label for="name">Nombre</label>
+                <input type="text" id="cname" name="name" placeholder="Tu nombre" required />
+            </div>
+            <div class="field">
+                <label for="email">Email</label>
+                <input type="email" id="cemail" name="email" placeholder="tu@email.com" required />
+            </div>
+        </div>
+        <div class="field">
+            <label for="subject">Asunto</label>
+            <input type="text" id="subject" name="subject" placeholder="Propuesta de proyecto / Consulta" />
+        </div>
+        <div class="field">
+            <label for="message">Mensaje</label>
+            <textarea id="message" name="message" placeholder="Cuéntame sobre tu proyecto..." required></textarea>
+        </div>
+        <button type="submit" class="form-submit">Enviar mensaje →</button>
+        <p class="form-status" id="formStatus"></p>
+    </form>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+    <div class="footer-logo">Pablo Cruz — ESE</div>
+    <ul class="footer-links">
+        <li><a href="#about">Perfil</a></li>
+        <li><a href="#projects">Proyectos</a></li>
+        <li><a href="#contact">Contacto</a></li>
+    </ul>
+    <div class="footer-copy">© 2026 Pablo Cruz. All rights reserved.</div>
+</footer>
+
+<script src="assets/js/script.js"></script>
+</body>
+</html>

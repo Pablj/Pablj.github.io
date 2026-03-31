@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Brazo Robótico & Visión — Pablo Cruz</title>
+    <meta name="description" content="Diseño e implementación de un brazo robótico con visión artificial, OpenCV y ESP32-CAM." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css" />
+    <style>
+        /* Estilos Core de la plantilla de proyectos */
+        #proj-hero {
+            min-height: 55vh;
+            display: flex;
+            align-items: flex-end;
+            padding: calc(var(--nav-h) + 3rem) var(--pad-x) 4rem;
+            background: var(--dark);
+            border-bottom: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+        #proj-hero::after {
+            content: '04';
+            position: absolute;
+            right: var(--pad-x);
+            bottom: 0;
+            font-family: var(--display);
+            font-size: clamp(10rem, 22vw, 20rem);
+            line-height: 0.85;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(0,229,255,0.05);
+            pointer-events: none;
+        }
+         /* ── BOTTOM NAV ── */
+        .proj-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.8rem var(--pad-x);
+            border-top: 1px solid var(--border);
+            background: var(--panel);
+            position: relative;
+            z-index: 1;
+        }
+        .proj-nav a {
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--muted);
+            transition: color .2s;
+        }
+        .proj-nav a:hover { color: var(--accent); }
+        .proj-nav .back { color: var(--accent); }
+
+        .proj-hero-meta { display: flex; flex-direction: column; gap: 1.5rem; max-width: 780px; position: relative; z-index: 1; }
+        .proj-breadcrumb { display: flex; align-items: center; gap: 0.6rem; font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+        .proj-breadcrumb a { color: var(--accent); }
+        .proj-category { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); }
+        .proj-category::before { content: '// '; color: var(--muted); }
+        
+        #proj-hero h1 { font-family: var(--display); font-size: clamp(3.5rem, 8vw, 7rem); line-height: 0.9; color: var(--white); letter-spacing: 0.04em; }
+        #proj-hero h1 .accent-line { display: block; color: transparent; -webkit-text-stroke: 1.5px var(--accent); }
+
+        .proj-hero-sub { font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.85; max-width: 600px; }
+        .proj-meta-row { display: flex; gap: 2.5rem; flex-wrap: wrap; padding-top: 1.2rem; border-top: 1px solid var(--border); }
+        .proj-meta-item { display: flex; flex-direction: column; gap: 0.3rem; }
+        
+        .proj-content { max-width: 1100px; margin: 0 auto; padding: 6rem var(--pad-x); }
+        .proj-block { margin-bottom: 5.5rem; }
+        .block-label { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.8rem; }
+        .block-label::before { content: '— '; }
+        .proj-block h2 { font-family: var(--display); font-size: clamp(2rem, 4vw, 3.2rem); color: var(--white); letter-spacing: 0.05em; margin-bottom: 1.5rem; line-height: 1; }
+        .proj-block p { font-size: 0.97rem; color: var(--muted); font-weight: 300; line-height: 1.9; margin-bottom: 1.2rem; max-width: 740px; }
+        
+        .arch-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin: 2.5rem 0; }
+        .arch-card { background: var(--panel); display: flex; flex-direction: column; }
+        .arch-card img { width: 100%; aspect-ratio: 4/3; object-fit: cover; padding: 1rem; background: var(--black); }
+        .arch-card-label { padding: 0.9rem 1.2rem; font-family: var(--mono); font-size: 0.66rem; text-transform: uppercase; color: var(--muted); border-top: 1px solid var(--border); }
+        .arch-card-label span { color: var(--accent); margin-right: 0.5rem; }
+
+        pre { background: #0a0a0a; padding: 1.5rem; border: 1px solid var(--border); overflow-x: auto; margin: 1.5rem 0; }
+        code { font-family: var(--mono); font-size: 0.85rem; color: #e0e0e0; line-height: 1.6; }
+        
+        .req-list { list-style: none; border: 1px solid var(--border); margin: 2rem 0; padding: 0; }
+        .req-list li { display: flex; align-items: flex-start; gap: 1.2rem; padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); font-size: 0.9rem; color: var(--muted); font-weight: 300; line-height: 1.7; }
+        .req-list li:last-child { border-bottom: none; }
+        .req-list li::before { content: attr(data-n); font-family: var(--mono); font-size: 0.6rem; color: var(--accent); min-width: 28px; margin-top: 0.2rem; }
+
+        .stack-tag { background: var(--panel); border: 1px solid var(--border); padding: 0.4rem 0.8rem; font-family: var(--mono); font-size: 0.65rem; color: var(--muted); text-transform: uppercase; display: inline-block; margin: 0.2rem; }
+
+        @media (max-width: 900px) { .arch-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+<nav id="navbar">
+    <div class="nav-logo">PC<span>/</span>ESE</div>
+    <ul class="nav-links">
+        <li><a href="../index.html#about">Perfil</a></li>
+        <li><a href="../index.html#projects" class="active">Proyectos</a></li>
+        <li><a href="../index.html#contact">Contacto</a></li>
+    </ul>
+    <a href="mailto:pablj5577@gmail.com" class="nav-cta">Disponible</a>
+</nav>
+
+<section id="proj-hero">
+    <div class="proj-hero-meta">
+        <div class="proj-breadcrumb">
+            <a href="../index.html">Inicio</a>
+            <span class="sep">/</span>
+            <a href="../index.html#projects">Proyectos</a>
+            <span class="sep">/</span>
+            Brazo Robótico
+        </div>
+        <p class="proj-category">Robotics & Vision — 04 / 04</p>
+        <h1>BRAZO <span class="accent-line">ROBÓTICO</span></h1>
+        <p class="proj-hero-sub">
+            Sistema de manipulación automatizada desarrollado en el 6º semestre de Ingeniería. 
+            Integra visión artificial con <strong>ESP32-CAM</strong>, procesamiento de imágenes en <strong>Python (OpenCV)</strong> 
+            y diseño mecánico impreso en 3D.
+        </p>
+        <div class="proj-meta-row">
+            <div class="proj-meta-item">
+                <span class="m-label">Hardware</span>
+                <span class="m-value">ESP32-CAM / Servos</span>
+            </div>
+            <div class="proj-meta-item">
+                <span class="m-label">Software</span>
+                <span class="m-value">Python / OpenCV</span>
+            </div>
+            <div class="proj-meta-item">
+                <span class="m-label">Mecánica</span>
+                <span class="m-value">Fusion 360 / 3D Print</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="proj-content">
+
+    <div class="proj-block reveal">
+        <p class="block-label">Visión General</p>
+        <h2>ARQUITECTURA DEL SISTEMA</h2>
+        <p>
+            El proyecto requirió la sincronización de tres dominios distintos: la captura y procesamiento visual de los objetos, 
+            el envío de correcciones por red y la actuación mecánica del efector final para lograr una manipulación precisa.
+        </p>
+
+        <div class="arch-grid">
+            <div class="arch-card">
+                <img src="images/DET_OBJ.PNG" alt="Análisis de Imagen OpenCV" />
+                <div class="arch-card-label"><span>01</span>Computer Vision — OpenCV</div>
+            </div>
+            <div class="arch-card">
+                <img src="images/HTTP.png" alt="Control de Servomotores HTTP" />
+                <div class="arch-card-label"><span>02</span>Comms — HTTP Post</div>
+            </div>
+            <div class="arch-card">
+                <img src="images/BASE_BRAZO.PNG" alt="Diseño Mecánico CAD" />
+                <div class="arch-card-label"><span>03</span>Hardware — Diseño CAD 3D</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="proj-divider"></div>
+
+    <div class="proj-block reveal">
+        <p class="block-label">Procesamiento de Imágenes</p>
+        <h2>ANÁLISIS DE IMAGEN Y CANNY</h2>
+        <p>
+            Se implementó un servidor web en la ESP32-CAM para la captura de imágenes. 
+            El procesamiento se realizó en Python (NumPy y OpenCV), aplicando el <strong>algoritmo de detección de bordes Canny</strong> 
+            para identificar contornos. Se analizan los puntos extremos para calcular la referencia en la columna base y centrar el objeto.
+        </p>
+        <pre><code>def puntos_de_referencia(bordes):
+    # Considerar sacar de while para dismiuir carga computacional
+    # y aumentar velocidad de respuesta
+    x, y = np.nonzero(bordes)
+    _, cols = bordes.shape
+    bordes_color = cv2.cvtColor(bordes, cv2.COLOR_GRAY2BGR)
+    try:
+        #cv2.circle(bordes_color, (y[0], x[-1]), 10, (0, 0, 255), 1)
+        cv2.circle(bordes_color, (y[0], x[0]), 10, (0, 0, 255), 1)
+        diferencia = 232 - y[0]
+        print(y[0])
+    except IndexError:
+        diferencia = None
+        
+    return(bordes_color, diferencia)</code></pre>
+    </div>
+
+    <div class="proj-divider"></div>
+
+    <div class="proj-block reveal">
+        <p class="block-label">Actuación y Red</p>
+        <h2>CONTROL DE SERVOMOTORES</h2>
+        <p>
+            El error calculado entre la posición deseada y la actual determina las correcciones enviadas mediante <strong>peticiones HTTP</strong> 
+            al servidor de la ESP32-CAM. Se implementó una lógica donde los servos que no requieren ajuste reciben el valor <code>-1</code>, 
+            minimizando el ancho de banda y simplificando el control.
+        </p>
+        <pre><code>def http_post_servo(servo=-1, servo2=-1, servo3=-1, servo4=-1, servo5=-1, time=1):
+    data = {"data": "{} {} {} {} {} ".format(servo, servo2, servo3, servo4, servo5)}
+    response = requests.post(urlRaiz, data=data)
+    
+    if response.status_code == 200:
+        print('Comando enviado correctamente')
+    else:
+        print("Failed to submit data")</code></pre>
+    </div>
+
+    <div class="proj-divider"></div>
+
+    <div class="proj-block reveal">
+        <p class="block-label">Estructura Física</p>
+        <h2>DISEÑO CAD Y HARDWARE</h2>
+        <p>
+            El diseño estructural se basó en el concepto de un robot tipo sumo. Se modelaron <strong>9 piezas en Autodesk Fusion 360</strong>, 
+            optimizadas para reducir el consumo de filamento PLA en la impresión 3D. El ensamblaje tomó en cuenta las restricciones mecánicas, 
+            el acoplamiento directo a los servomotores y la protección de la circuitería, implementando diodos para evitar que las corrientes inversas generadas por los motores dañaran el microcontrolador.
+        </p>
+    </div>
+
+    <div class="proj-divider"></div>
+
+    <div class="proj-block reveal">
+        <p class="block-label">Evaluación</p>
+        <h2>RESULTADOS Y TRABAJO FUTURO</h2>
+        <p>
+            El sistema logró identificar y reubicar objetos en tiempo real, validando la integración de visión, red y actuación. 
+            Sin embargo, se definieron los siguientes vectores de mejora técnica:
+        </p>
+        <ul class="req-list">
+            <li data-n="01"><strong>Controladores:</strong> Implementación de algoritmos PID para suavizar movimientos y reducir oscilaciones.</li>
+            <li data-n="02"><strong>Cinemática:</strong> Integración de control cinemático inverso para una planificación de trayectorias precisa.</li>
+            <li data-n="03"><strong>Protocolo de Red:</strong> Migración de HTTP POST a <em>WebSockets</em> o protocolo serial para minimizar la latencia.</li>
+            <li data-n="04"><strong>Filtrado de Señal:</strong> Uso de filtros de Kalman o media móvil para reducir el ruido visual en la detección.</li>
+            <li data-n="05"><strong>Optimización CAD:</strong> Reducción de holguras en la punta del mecanismo de transmisión para mayor exactitud.</li>
+        </ul>
+    </div>
+
+    <div class="proj-divider"></div>
+
+    <div class="proj-block reveal">
+        <p class="block-label">Herramientas</p>
+        <h2>STACK TÉCNICO</h2>
+        <div class="tech-row">
+            <span class="stack-tag">Python</span>
+            <span class="stack-tag">OpenCV / NumPy</span>
+            <span class="stack-tag">ESP32-CAM</span>
+            <span class="stack-tag">HTTP Requests</span>
+            <span class="stack-tag">Fusion 360</span>
+            <span class="stack-tag">Impresión 3D</span>
+            <span class="stack-tag">Servomotores</span>
+        </div>
+    </div>
+
+</div>
+
+<div class="proj-nav">
+    <a href="../index.html#projects" class="back">← Todos los proyectos</a>
+    <a href="scheduler.html">Siguiente: SJF Scheduler →</a>
+</div>
+
+
+<script src="../assets/js/script.js"></script>
+</body>
+</html>
