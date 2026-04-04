@@ -6,14 +6,14 @@
     <title>Pablo Cruz — Embedded Systems Engineer</title>
     <meta name="description" content="Portfolio de ingeniería en sistemas embebidos, IoT y desarrollo de firmware." />
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
 
 <!-- ── NAV ── -->
 <nav id="navbar">
-    <div class="nav-logo">PC<span>/</span>ESE</div>
+    <div class="nav-logo">PC<em>/</em>ESE</div>
     <ul class="nav-links">
         <li><a href="#about">Perfil</a></li>
         <li><a href="#projects">Proyectos</a></li>
@@ -41,18 +41,25 @@
 <section id="hero">
     <div class="hero-content">
         <p class="hero-tag">Embedded Systems Engineer — México</p>
-        <h1>PABLO<span class="accent-line">CRUZ</span></h1>
+        <h1>Pablo<br><span class="accent-word">Cruz</span></h1>
         <p class="hero-sub">
             Construyo sistemas que viven en el <strong>hardware</strong>.<br>
-            Especializado en <strong>RTOS</strong>, comunicación <strong>IoT</strong> (MQTT, LoRa),
-            firmware de alta confiabilidad y arquitecturas distribuidas embebidas.
+            Especializado en <strong>RTOS</strong>, comunicación <strong>IoT</strong>
+            (MQTT, LoRa), firmware de alta confiabilidad y arquitecturas distribuidas.
         </p>
         <div class="hero-actions">
             <a href="#projects" class="btn-primary">Ver proyectos</a>
-            <a href="assets/pdf/cv/PabloCruzMorales_EmbeddedEngineer.pdf" class="btn-ghost">Descargar CV</a>
+            <a href="assets/pdf/cv/" class="btn-ghost">Descargar CV</a>
         </div>
     </div>
-    <div class="hero-index" aria-hidden="true">ESE</div>
+
+    <!-- decorative circuit-dot pattern -->
+    <div class="hero-deco" aria-hidden="true">
+        <div class="deco-ring deco-ring--1"></div>
+        <div class="deco-ring deco-ring--2"></div>
+        <div class="deco-ring deco-ring--3"></div>
+    </div>
+
     <div class="hero-scroll" aria-hidden="true">
         <div class="scroll-line"></div>
         scroll
@@ -74,29 +81,29 @@
         <div class="stat-label">Plataforma principal</div>
     </div>
     <div class="stat">
-        <div class="stat-num">VHDL<span>.</span></div>
+        <div class="stat-num">VHDL</div>
         <div class="stat-label">Hardware description</div>
     </div>
 </div>
 
 <!-- ── ABOUT ── -->
 <section id="about">
-    <div class="about-text">
+    <div class="about-left">
         <div class="section-header reveal">
-            <span class="section-num">01 —</span>
-            <h2>PERFIL</h2>
-            <div class="section-line"></div>
+            <span class="section-num">01</span>
+            <h2>Perfil</h2>
         </div>
-        <div class="reveal">
+        <div class="about-body reveal">
             <p>
-                Ingeniero en sistemas embebidos con enfoque en <strong>rendimiento determinístico</strong>,
-                confiabilidad industrial y desarrollo de firmware de producción. Mi trabajo vive en
-                la intersección entre el hardware y el software de bajo nivel.
+                Ingeniero en sistemas embebidos con enfoque en
+                <strong>rendimiento determinístico</strong>, confiabilidad industrial
+                y desarrollo de firmware de producción. Mi trabajo vive en la intersección
+                entre el hardware y el software de bajo nivel.
             </p>
             <p>
-                Experiencia construyendo desde <strong>microcontroladores personalizados en VHDL</strong>
-                hasta pipelines de seguridad en Kubernetes y brazos robóticos con visión artificial.
-                Cada proyecto está orientado a resolver un problema real con soluciones elegantes y escalables.
+                Experiencia construyendo desde <strong>microcontroladores personalizados
+                en VHDL</strong> hasta pipelines de seguridad en Kubernetes y brazos
+                robóticos con visión artificial.
             </p>
         </div>
     </div>
@@ -106,40 +113,32 @@
             <div class="skill-icon">⬡</div>
             <div class="skill-title">Firmware</div>
             <div class="skill-tags">
-                <span class="tag">C/C++</span>
-                <span class="tag">RTOS</span>
-                <span class="tag">FreeRTOS</span>
-                <span class="tag">ESP-IDF</span>
+                <span class="tag">C/C++</span><span class="tag">RTOS</span>
+                <span class="tag">FreeRTOS</span><span class="tag">ESP-IDF</span>
             </div>
         </div>
         <div class="skill-card">
             <div class="skill-icon">◈</div>
             <div class="skill-title">Hardware</div>
             <div class="skill-tags">
-                <span class="tag">VHDL</span>
-                <span class="tag">Vivado</span>
-                <span class="tag">FPGA</span>
-                <span class="tag">GPIO</span>
+                <span class="tag">VHDL</span><span class="tag">Vivado</span>
+                <span class="tag">FPGA</span><span class="tag">GPIO</span>
             </div>
         </div>
         <div class="skill-card">
             <div class="skill-icon">⟁</div>
             <div class="skill-title">IoT & Comms</div>
             <div class="skill-tags">
-                <span class="tag">MQTT</span>
-                <span class="tag">LoRa</span>
-                <span class="tag">ESP32</span>
-                <span class="tag">BLE</span>
+                <span class="tag">MQTT</span><span class="tag">LoRa</span>
+                <span class="tag">ESP32</span><span class="tag">BLE</span>
             </div>
         </div>
         <div class="skill-card">
             <div class="skill-icon">◎</div>
             <div class="skill-title">Cloud & DevOps</div>
             <div class="skill-tags">
-                <span class="tag">Kubernetes</span>
-                <span class="tag">Docker</span>
-                <span class="tag">Python</span>
-                <span class="tag">Linux</span>
+                <span class="tag">Kubernetes</span><span class="tag">Docker</span>
+                <span class="tag">Python</span><span class="tag">Linux</span>
             </div>
         </div>
     </div>
@@ -148,29 +147,26 @@
 <!-- ── PROJECTS ── -->
 <section id="projects">
     <div class="section-header reveal">
-        <span class="section-num">02 —</span>
-        <h2>PROYECTOS</h2>
-        <div class="section-line"></div>
+        <span class="section-num">02</span>
+        <h2>Proyectos</h2>
     </div>
 
     <div class="projects-grid">
 
-        <!-- Featured -->
         <article class="project-card featured reveal">
             <div class="featured-body">
                 <div class="project-num"><span>01</span> / 04 — Hardware Design</div>
-                <h3>DISEÑO DE MICROCONTROLADOR EN VHDL</h3>
+                <h3>Diseño de Microcontrolador en VHDL</h3>
                 <p class="project-desc">
-                    Implementación completa de un microcontrolador de 8 bits con soporte
-                    para interrupciones mediante arquitectura tipo NVIC. Incluye módulos GPIO,
-                    gestión de eventos externos y pipeline de instrucciones personalizado.
+                    Implementación de un microcontrolador de 8 bits con soporte para
+                    interrupciones mediante arquitectura NVIC. Módulos GPIO, gestión de
+                    eventos externos y pipeline de instrucciones personalizado.
                 </p>
                 <div class="project-stack">
                     <span class="stack-tag">VHDL</span>
                     <span class="stack-tag">Vivado</span>
                     <span class="stack-tag">FPGA</span>
                     <span class="stack-tag">NVIC</span>
-                    <span class="stack-tag">Digital Design</span>
                 </div>
                 <a href="projects/nvic.html" class="project-link">Ver proyecto</a>
             </div>
@@ -187,52 +183,44 @@
             </div>
         </article>
 
-        <!-- Card 2 -->
         <article class="project-card reveal">
             <div class="project-num"><span>02</span> / 04 — Cloud Security</div>
-            <h3>KUBERNETES HARDENING</h3>
+            <h3>Kubernetes Hardening</h3>
             <p class="project-desc">
-                Implementación de prácticas avanzadas de seguridad en Kubernetes: RBAC,
-                segmentación de red con NetworkPolicies, control de recursos y auditoría
-                continua. Stack EFK integrado para observabilidad y análisis de logs.
+                RBAC, segmentación de red con NetworkPolicies, control de recursos
+                y auditoría continua. Stack EFK para observabilidad y análisis de logs.
             </p>
             <div class="project-stack">
                 <span class="stack-tag">Kubernetes</span>
                 <span class="stack-tag">RBAC</span>
                 <span class="stack-tag">EFK Stack</span>
                 <span class="stack-tag">Docker</span>
-                <span class="stack-tag">Helm</span>
             </div>
             <a href="projects/k8s.html" class="project-link">Ver proyecto</a>
         </article>
 
-        <!-- Card 3 -->
         <article class="project-card reveal">
             <div class="project-num"><span>03</span> / 04 — Robotics & AI</div>
-            <h3>BRAZO ROBÓTICO CON VISIÓN ARTIFICIAL</h3>
+            <h3>Brazo Robótico con Visión Artificial</h3>
             <p class="project-desc">
-                Sistema de control embebido para robot de 5 GDL usando ESP32-CAM.
-                Procesamiento de imágenes en servidor Python para toma de decisiones
-                autónoma en tiempo real con integración bidireccional hardware-software.
+                Control embebido para robot de 5 GDL con ESP32-CAM. Procesamiento
+                de imágenes en servidor Python para decisiones autónomas en tiempo real.
             </p>
             <div class="project-stack">
                 <span class="stack-tag">ESP32-CAM</span>
                 <span class="stack-tag">Python</span>
                 <span class="stack-tag">OpenCV</span>
                 <span class="stack-tag">MQTT</span>
-                <span class="stack-tag">Servo PWM</span>
             </div>
             <a href="projects/robotic-arm.html" class="project-link">Ver proyecto</a>
         </article>
 
-        <!-- Card 4 -->
         <article class="project-card reveal">
             <div class="project-num"><span>04</span> / 04 — OS Simulation</div>
-            <h3>SIMULADOR DE PLANIFICADOR SJF</h3>
+            <h3>Simulador de Planificador SJF</h3>
             <p class="project-desc">
-                Simulación en C de un sistema operativo con algoritmo Shortest Job First
-                preemptivo. Análisis detallado de tiempos de espera, turnaround y
-                estadísticas de rendimiento del sistema.
+                Simulación en C del algoritmo Shortest Job First preemptivo. Análisis
+                de tiempos de espera, turnaround y estadísticas de rendimiento.
             </p>
             <div class="project-stack">
                 <span class="stack-tag">C</span>
@@ -250,13 +238,12 @@
 <section id="contact">
     <div class="contact-text">
         <div class="section-header reveal">
-            <span class="section-num">03 —</span>
-            <h2>CONTACTO</h2>
-            <div class="section-line"></div>
+            <span class="section-num">03</span>
+            <h2>Contacto</h2>
         </div>
         <p class="reveal">
-            Disponible para proyectos de sistemas embebidos, desarrollo de firmware
-            e integración IoT. Abierto a colaboraciones técnicas y oportunidades de tiempo completo.
+            Disponible para proyectos de sistemas embebidos, firmware e integración IoT.
+            Abierto a colaboraciones técnicas y oportunidades de tiempo completo.
         </p>
         <ul class="contact-list reveal">
             <li>
@@ -269,7 +256,7 @@
             </li>
             <li>
                 <span class="c-label">LinkedIn</span>
-                <a href="https://www.linkedin.com/in/pablo-cruz-84450a213/" target="_blank" rel="noopener">pablo-cruz-84450a213</a>
+                <a href="https://www.linkedin.com/in/pablo-osvaldo/" target="_blank" rel="noopener">Pablo-osvaldo</a>
             </li>
             <li>
                 <span class="c-label">Base</span>
@@ -281,17 +268,17 @@
     <form class="contact-form reveal" id="contactForm" novalidate>
         <div class="form-row">
             <div class="field">
-                <label for="name">Nombre</label>
+                <label for="cname">Nombre</label>
                 <input type="text" id="cname" name="name" placeholder="Tu nombre" required />
             </div>
             <div class="field">
-                <label for="email">Email</label>
+                <label for="cemail">Email</label>
                 <input type="email" id="cemail" name="email" placeholder="tu@email.com" required />
             </div>
         </div>
         <div class="field">
             <label for="subject">Asunto</label>
-            <input type="text" id="subject" name="subject" placeholder="Propuesta de proyecto / Consulta" />
+            <input type="text" id="subject" name="subject" placeholder="Propuesta / Consulta" />
         </div>
         <div class="field">
             <label for="message">Mensaje</label>

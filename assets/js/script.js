@@ -164,27 +164,63 @@
 })();
 
 
-/* ── 6. CURSOR GLOW (desktop only) ── */
-(function initCursorGlow() {
-    if (window.matchMedia('(pointer: coarse)').matches) return; // skip touch devices
 
-    const glow = document.createElement('div');
-    glow.style.cssText = `
-        position: fixed;
-        width: 300px;
-        height: 300px;
-        border-radius: 50%;
-        background: radial-gradient(circle, rgba(0,229,255,0.06) 0%, transparent 70%);
-        pointer-events: none;
-        z-index: 0;
-        transform: translate(-50%, -50%);
-        transition: left 0.12s ease, top 0.12s ease;
-        will-change: left, top;
-    `;
-    document.body.appendChild(glow);
+/* ── 6. CURSOR DATA GLITCH (Slow & Rare 2) ── */
+(function initCursorMatrix() {
+    if (window.matchMedia('(pointer: coarse)').matches) return;
+
+    const container = document.createElement('div');
+    container.style.cssText = 'position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:999;';
+    document.body.appendChild(container);
+
+    let lastTime = 0;
 
     document.addEventListener('mousemove', (e) => {
-        glow.style.left = e.clientX + 'px';
-        glow.style.top  = e.clientY + 'px';
+        const currentTime = Date.now();
+        
+        // --- CONTROL DE VELOCIDAD ---
+        // Cambia 150 por un número más alto (ej. 300) para que sea aún más lento
+        if (currentTime - lastTime < 150) return; 
+        lastTime = currentTime;
+
+        const char = document.createElement('span');
+        
+        // Lógica del "2" (5% de probabilidad)
+        const r = Math.random();
+        if (r < 0.05) {
+            char.innerText = '2';
+            char.style.color = 'var(--berry)';
+            char.style.fontWeight = 'bold';
+        } else {
+            char.innerText = r < 0.525 ? '0' : '1';
+            char.style.color = 'var(--lavender)';
+        }
+
+        char.style.cssText += `
+            position: absolute;
+            left: ${e.clientX}px;
+            top: ${e.clientY}px;
+            font-family: var(--mono);
+            font-size: 0.85rem; /* Un pelín más grande para que se vea bien el 2 */
+            opacity: 0.8;
+            transform: translate(-50%, -50%);
+            animation: dataFall 1.2s forwards ease-out; /* Caída más suave */
+            pointer-events: none;
+        `;
+        
+        container.appendChild(char);
+
+        // Limpieza automática (coincide con el tiempo de la animación)
+        setTimeout(() => char.remove(), 1200);
     });
+
+    const styleSheet = document.createElement("style");
+    styleSheet.type = "text/css";
+    styleSheet.innerText = `
+        @keyframes dataFall {
+            0% { transform: translate(-50%, -50%) translateY(0); opacity: 0.8; }
+            100% { transform: translate(-50%, -50%) translateY(30px); opacity: 0; }
+        }
+    `;
+    document.head.appendChild(styleSheet);
 })();

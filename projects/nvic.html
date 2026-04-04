@@ -6,447 +6,18 @@
     <title>NVIC & GPIO — Pablo Cruz</title>
     <meta name="description" content="Diseño de microcontrolador de 8 bits con soporte de interrupciones NVIC y GPIO en VHDL." />
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/style.css" />
+    <link rel="stylesheet" href="../assets/css/projects.css" />
     <style>
-     
-
-        #proj-hero {
-            min-height: 55vh;
-            display: flex;
-            align-items: flex-end;
-            padding: calc(var(--nav-h) + 3rem) var(--pad-x) 4rem;
-            background: var(--dark);
-            border-bottom: 1px solid var(--border);
-            position: relative;
-            overflow: hidden;
-        }
-        #proj-hero::after {
-            content: '01';
-            position: absolute;
-            right: var(--pad-x);
-            bottom: 0;
-            font-family: var(--display);
-            font-size: clamp(10rem, 22vw, 20rem);
-            line-height: 0.85;
-            color: transparent;
-            -webkit-text-stroke: 1px rgba(0,229,255,0.05);
-            pointer-events: none;
-            user-select: none;
-        }
-
-        .proj-hero-meta {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-            max-width: 780px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .proj-breadcrumb {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            font-family: var(--mono);
-            font-size: 0.68rem;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--muted);
-        }
-        .proj-breadcrumb a { color: var(--accent); }
-        .proj-breadcrumb a:hover { opacity: 0.7; }
-        .proj-breadcrumb .sep { color: var(--border); }
-
-        .proj-category {
-            font-family: var(--mono);
-            font-size: 0.7rem;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            color: var(--accent);
-        }
-        .proj-category::before { content: '// '; color: var(--muted); }
-
-        #proj-hero h1 {
-            font-family: var(--display);
-            font-size: clamp(3.5rem, 8vw, 7rem);
-            line-height: 0.9;
-            color: var(--white);
-            letter-spacing: 0.04em;
-            opacity: 1;
-            animation: none;
-            transform: none;
-        }
-        #proj-hero h1 .accent-line {
-            display: block;
-            color: transparent;
-            -webkit-text-stroke: 1.5px var(--accent);
-        }
-
-        .proj-hero-sub {
-            font-size: 1rem;
-            font-weight: 300;
-            color: var(--muted);
-            line-height: 1.85;
-            max-width: 600px;
-        }
-        .proj-hero-sub strong { color: var(--text); font-weight: 500; }
-
-        .proj-meta-row {
-            display: flex;
-            gap: 2.5rem;
-            flex-wrap: wrap;
-            padding-top: 1.2rem;
-            border-top: 1px solid var(--border);
-        }
-        .proj-meta-item { display: flex; flex-direction: column; gap: 0.3rem; }
-        .m-label {
-            font-family: var(--mono);
-            font-size: 0.6rem;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--muted);
-        }
-        .m-value {
-            font-family: var(--mono);
-            font-size: 0.8rem;
-            color: var(--text);
-        }
-        .m-value a { color: var(--accent); transition: opacity .2s; }
-        .m-value a:hover { opacity: .7; }
-
-        /* ── CONTENT ── */
-        .proj-content {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 6rem var(--pad-x);
-        }
-
-        .proj-block { margin-bottom: 5.5rem; }
-
-        .block-label {
-            font-family: var(--mono);
-            font-size: 0.65rem;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 0.8rem;
-        }
-        .block-label::before { content: '— '; }
-
-        .proj-block h2 {
-            font-family: var(--display);
-            font-size: clamp(2rem, 4vw, 3.2rem);
-            color: var(--white);
-            letter-spacing: 0.05em;
-            margin-bottom: 1.5rem;
-            line-height: 1;
-        }
-
-        .proj-block p {
-            font-size: 0.97rem;
-            color: var(--muted);
-            font-weight: 300;
-            line-height: 1.9;
-            margin-bottom: 1.2rem;
-            max-width: 740px;
-        }
-        .proj-block p strong { color: var(--text); font-weight: 500; }
-
-        .proj-divider {
-            height: 1px;
-            background: var(--border);
-            margin-bottom: 5.5rem;
-        }
-
-        /* ── ARCH GRID ── */
-        .arch-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1px;
-            background: var(--border);
-            border: 1px solid var(--border);
-            margin: 2.5rem 0;
-        }
-        .arch-card {
-            background: var(--panel);
-            display: flex;
-            flex-direction: column;
-            transition: background .2s;
-        }
-        .arch-card:hover { background: #131c27; }
-        .arch-card img {
-            width: 100%;
-            aspect-ratio: 4/3;
-            object-fit: contain;
-            padding: 1.5rem 1.5rem 0;
-            background: var(--black);
-        }
-        .arch-card-label {
-            padding: 0.9rem 1.2rem;
-            font-family: var(--mono);
-            font-size: 0.66rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--muted);
-            border-top: 1px solid var(--border);
-        }
-        .arch-card-label span { color: var(--accent); margin-right: 0.5rem; }
-
-        /* ── REQ LIST ── */
-        .req-list {
-            list-style: none;
-            border: 1px solid var(--border);
-            margin: 2rem 0;
-        }
-        .req-list li {
-            display: flex;
-            align-items: flex-start;
-            gap: 1.2rem;
-            padding: 1rem 1.5rem;
-            border-bottom: 1px solid var(--border);
-            font-size: 0.9rem;
-            color: var(--muted);
-            font-weight: 300;
-            line-height: 1.7;
-            transition: background .2s;
-        }
-        .req-list li:last-child { border-bottom: none; }
-        .req-list li:hover { background: var(--panel); }
-        .req-list li::before {
-            content: attr(data-n);
-            font-family: var(--mono);
-            font-size: 0.6rem;
-            letter-spacing: 0.1em;
-            color: var(--accent);
-            min-width: 28px;
-            margin-top: 0.2rem;
-            flex-shrink: 0;
-        }
-        .req-list li strong { color: var(--text); font-weight: 500; }
-
-        /* ── FSM GRID ── */
-        .fsm-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1px;
-            background: var(--border);
-            border: 1px solid var(--border);
-            margin: 2rem 0;
-        }
-        .fsm-state {
-            background: var(--panel);
-            padding: 1.3rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.4rem;
-            transition: background .2s;
-        }
-        .fsm-state:hover { background: #131c27; }
-        .fsm-num {
-            font-family: var(--display);
-            font-size: 2rem;
-            color: transparent;
-            -webkit-text-stroke: 1px rgba(0,229,255,0.3);
-            line-height: 1;
-        }
-        .fsm-name {
-            font-family: var(--mono);
-            font-size: 0.68rem;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: var(--white);
-        }
-        .fsm-desc {
-            font-size: 0.8rem;
-            color: var(--muted);
-            font-weight: 300;
-            line-height: 1.6;
-        }
-
-        /* ── IMAGE BLOCK ── */
-        .proj-img-wrap {
-            margin: 2.5rem 0;
-            border: 1px solid var(--border);
-            background: var(--black);
-            overflow: hidden;
-        }
-        .proj-img-wrap img {
-            width: 100%;
-            height: auto;
-            display: block;
-            object-fit: contain;
-        }
-        .proj-img-caption {
-            padding: 0.8rem 1.2rem;
-            font-family: var(--mono);
-            font-size: 0.63rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--muted);
-            border-top: 1px solid var(--border);
-        }
-        .proj-img-caption span { color: var(--accent); margin-right: 0.5rem; }
-
-        /* ── SIM TABS ── */
-        .sim-tabs {
-            display: flex;
-            border: 1px solid var(--border);
-            border-bottom: none;
-            margin-top: 2.5rem;
-        }
-        .sim-tab {
-            font-family: var(--mono);
-            font-size: 0.68rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--muted);
-            padding: 0.75rem 1.5rem;
-            cursor: pointer;
-            border-right: 1px solid var(--border);
-            background: var(--panel);
-            transition: color .2s, background .2s;
-            user-select: none;
-            border-bottom: 2px solid transparent;
-        }
-        .sim-tab:last-child { border-right: none; }
-        .sim-tab:hover { color: var(--text); }
-        .sim-tab.active {
-            color: var(--accent);
-            background: var(--black);
-            border-bottom: 2px solid var(--accent);
-        }
-        .sim-panels {
-            border: 1px solid var(--border);
-            background: var(--black);
-        }
-        .sim-panel { display: none; padding: 2rem; }
-        .sim-panel.active { display: block; }
-        .sim-panel img {
-            width: 100%;
-            height: auto;
-            display: block;
-            border: 1px solid var(--border);
-        }
-        .sim-panel-desc {
-            margin-top: 1.25rem;
-            font-size: 0.9rem;
-            color: var(--muted);
-            line-height: 1.85;
-            font-weight: 300;
-            max-width: 720px;
-        }
-        .sim-panel-desc strong { color: var(--text); font-weight: 500; }
-
-        /* ── ISA TABLE ── */
-        .isa-table {
-            width: 100%;
-            border-collapse: collapse;
-            border: 1px solid var(--border);
-            margin: 2rem 0;
-        }
-        .isa-table th {
-            background: var(--panel);
-            color: var(--muted);
-            font-family: var(--mono);
-            font-size: 0.62rem;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            padding: 0.8rem 1.2rem;
-            text-align: left;
-            border-bottom: 1px solid var(--border);
-            font-weight: 400;
-        }
-        .isa-table td {
-            font-family: var(--mono);
-            font-size: 0.75rem;
-            padding: 0.8rem 1.2rem;
-            border-bottom: 1px solid var(--border);
-            color: var(--text);
-            vertical-align: middle;
-        }
-        .isa-table tr:last-child td { border-bottom: none; }
-        .isa-table tr:hover td { background: var(--panel); }
-        .isa-table .op { color: var(--accent); }
-        .isa-table .desc-cell { color: var(--muted); font-size: 0.72rem; }
-
-        /* ── TECH ROW ── */
-        .tech-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin: 1.5rem 0;
-        }
-
-        /* ── CTA BLOCK ── */
-        .proj-cta {
-            border: 1px solid var(--border);
-            background: var(--panel);
-            padding: 3rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
-        .proj-cta-text h3 {
-            font-family: var(--display);
-            font-size: 2rem;
-            color: var(--white);
-            letter-spacing: 0.05em;
-            margin-bottom: 0.5rem;
-            line-height: 1;
-        }
-        .proj-cta-text p {
-            font-size: 0.88rem;
-            color: var(--muted);
-            font-weight: 300;
-            max-width: 460px;
-            line-height: 1.7;
-            margin: 0;
-        }
-
-        /* ── BOTTOM NAV ── */
-        .proj-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.8rem var(--pad-x);
-            border-top: 1px solid var(--border);
-            background: var(--panel);
-            position: relative;
-            z-index: 1;
-        }
-        .proj-nav a {
-            font-family: var(--mono);
-            font-size: 0.7rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--muted);
-            transition: color .2s;
-        }
-        .proj-nav a:hover { color: var(--accent); }
-        .proj-nav .back { color: var(--accent); }
-
-        /* ── RESPONSIVE ── */
-        @media (max-width: 900px) {
-            .arch-grid { grid-template-columns: 1fr; }
-            .fsm-grid  { grid-template-columns: repeat(2, 1fr); }
-            .proj-cta  { flex-direction: column; }
-        }
-        @media (max-width: 640px) {
-            .fsm-grid { grid-template-columns: 1fr 1fr; }
-            .proj-meta-row { gap: 1.5rem; }
-            .sim-tabs { flex-wrap: wrap; }
-            #proj-hero h1 { font-size: 3rem; }
-        }
+        /* Número decorativo único de esta página */
+        #proj-hero::after { content: '01'; }
     </style>
 </head>
 <body>
 
-<!-- ── NAV ── -->
 <nav id="navbar">
-    <div class="nav-logo">PC<span>/</span>ESE</div>
+    <div class="nav-logo">PC<em>/</em>ESE</div>
     <ul class="nav-links">
         <li><a href="../index.html#about">Perfil</a></li>
         <li><a href="../index.html#projects" class="active">Proyectos</a></li>
@@ -464,11 +35,11 @@
         <li><a href="../index.html#about">Perfil</a></li>
         <li><a href="../index.html#projects">Proyectos</a></li>
         <li><a href="../index.html#contact">Contacto</a></li>
+        <li><a href="mailto:pablj5577@gmail.com" class="drawer-cta">Disponible →</a></li>
     </ul>
 </div>
 <div class="drawer-overlay" id="drawerOverlay"></div>
 
-<!-- ── HERO ── -->
 <section id="proj-hero">
     <div class="proj-hero-meta">
         <div class="proj-breadcrumb">
@@ -500,62 +71,40 @@
             </div>
             <div class="proj-meta-item">
                 <span class="m-label">Reporte</span>
-                <span class="m-value">
-                    <a href="../assets/pdf/technical-reports/NVIC.pdf" target="_blank">Ver PDF →</a>
-                </span>
+                <span class="m-value"><a href="../assets/pdf/technical-reports/NVIC_Nw.pdf" target="_blank">Ver PDF →</a></span>
             </div>
         </div>
     </div>
 </section>
 
-<!-- ── MAIN CONTENT ── -->
 <div class="proj-content">
 
-    <!-- 01 ARQUITECTURA -->
     <div class="proj-block reveal">
         <p class="block-label">Descripción general</p>
-        <h2>ARQUITECTURA DEL SISTEMA</h2>
-        <p>
-            El sistema se compone de tres bloques principales que interactúan de forma coordinada:
-            <strong>Procesador</strong>, <strong>NVIC</strong> y <strong>GPIO</strong>.
-            El NVIC actúa como árbitro de interrupciones, pausando la GCM del procesador,
-            gestionando el contexto y cediendo el control a la rutina de servicio (ISR).
-        </p>
-
+        <h2>Arquitectura del Sistema</h2>
+        <p>El sistema se compone de tres bloques principales: <strong>Procesador</strong>, <strong>NVIC</strong> y <strong>GPIO</strong>. El NVIC actúa como árbitro de interrupciones, pausando la GCM del procesador, gestionando el contexto y cediendo el control a la rutina de servicio (ISR).</p>
         <div class="arch-grid">
             <div class="arch-card">
-                <img src="../assets/img/nvic/procesador.PNG" alt="Arquitectura interna del procesador" />
+                <img src="../assets/img/nvic/procesador.PNG" alt="Procesador" />
                 <div class="arch-card-label"><span>01</span>Procesador — ALU, PC, ACC, GCM</div>
             </div>
             <div class="arch-card">
-                <img src="../assets/img/nvic/NVIC_B.PNG" alt="Controlador NVIC" />
+                <img src="../assets/img/nvic/NVIC_B.PNG" alt="NVIC" />
                 <div class="arch-card-label"><span>02</span>NVIC — FSM de interrupciones</div>
             </div>
             <div class="arch-card">
-                <img src="../assets/img/nvic/GPIO_R.png" alt="Módulo GPIO" />
+                <img src="../assets/img/nvic/GPIO_R.png" alt="GPIO" />
                 <div class="arch-card-label"><span>03</span>GPIO — Periférico configurable</div>
             </div>
         </div>
-
-        <p>
-            El diagrama izquierdo muestra la arquitectura interna del procesador (ALU, PC, ACC,
-            GCM y buses de datos). El central representa el NVIC con su lógica de control y
-            almacenamiento de contexto. El derecho ilustra el módulo GPIO y su interfaz con el bus.
-        </p>
     </div>
 
     <div class="proj-divider"></div>
 
-    <!-- 02 PROBLEMA -->
     <div class="proj-block reveal">
         <p class="block-label">Problema técnico</p>
-        <h2>REQUERIMIENTOS</h2>
-        <p>
-            El procesador original carecía de soporte para interrupciones externas.
-            Se necesitaba un mecanismo capaz de reaccionar ante eventos asíncronos
-            sin comprometer la integridad del estado del programa en ejecución.
-        </p>
-
+        <h2>Requerimientos</h2>
+        <p>El procesador original carecía de soporte para interrupciones externas. Se necesitaba un mecanismo capaz de reaccionar ante eventos asíncronos sin comprometer la integridad del estado del programa en ejecución.</p>
         <ul class="req-list">
             <li data-n="R1">Detectar eventos externos mediante señales GPIO en modo entrada</li>
             <li data-n="R2">Detener la ejecución del programa sin pérdida de contexto</li>
@@ -567,166 +116,66 @@
 
     <div class="proj-divider"></div>
 
-    <!-- 03 NVIC -->
     <div class="proj-block reveal">
         <p class="block-label">Diseño del controlador</p>
-        <h2>NVIC — FSM DE 8 ESTADOS</h2>
-        <p>
-            El NVIC fue implementado como una <strong>máquina de estados finitos (FSM)</strong>
-            de 8 estados. La señal de pausa de la GCM se construyó con registros tipo T,
-            garantizando estabilidad del bus durante la conmutación de contexto.
-        </p>
-
+        <h2>NVIC — FSM de 8 Estados</h2>
+        <p>El NVIC fue implementado como una <strong>máquina de estados finitos (FSM)</strong> de 8 estados. La señal de pausa de la GCM se construyó con registros tipo T, garantizando estabilidad del bus durante la conmutación de contexto.</p>
         <div class="fsm-grid">
-            <div class="fsm-state">
-                <div class="fsm-num">S0</div>
-                <div class="fsm-name">IDLE</div>
-                <div class="fsm-desc">Espera activa de señal IRQ</div>
-            </div>
-            <div class="fsm-state">
-                <div class="fsm-num">S1</div>
-                <div class="fsm-name">PAUSE</div>
-                <div class="fsm-desc">Pausa la GCM del procesador</div>
-            </div>
-            <div class="fsm-state">
-                <div class="fsm-num">S2</div>
-                <div class="fsm-name">SAVE ACC</div>
-                <div class="fsm-desc">Respalda el registro acumulador</div>
-            </div>
-            <div class="fsm-state">
-                <div class="fsm-num">S3</div>
-                <div class="fsm-name">SAVE PC</div>
-                <div class="fsm-desc">Guarda dirección PC + 1</div>
-            </div>
-            <div class="fsm-state">
-                <div class="fsm-num">S4</div>
-                <div class="fsm-name">LOAD ISR</div>
-                <div class="fsm-desc">Carga dirección base de la ISR</div>
-            </div>
-            <div class="fsm-state">
-                <div class="fsm-num">S5</div>
-                <div class="fsm-name">EXECUTE</div>
-                <div class="fsm-desc">Ejecución activa de la ISR</div>
-            </div>
-            <div class="fsm-state">
-                <div class="fsm-num">S6</div>
-                <div class="fsm-name">RESTORE</div>
-                <div class="fsm-desc">Restaura ACC y PC originales</div>
-            </div>
-            <div class="fsm-state">
-                <div class="fsm-num">S7</div>
-                <div class="fsm-name">RESUME</div>
-                <div class="fsm-desc">Reanuda la GCM del procesador</div>
-            </div>
+            <div class="fsm-state"><div class="fsm-num">S0</div><div class="fsm-name">IDLE</div><div class="fsm-desc">Espera activa de señal IRQ</div></div>
+            <div class="fsm-state"><div class="fsm-num">S1</div><div class="fsm-name">PAUSE</div><div class="fsm-desc">Pausa la GCM del procesador</div></div>
+            <div class="fsm-state"><div class="fsm-num">S2</div><div class="fsm-name">SAVE ACC</div><div class="fsm-desc">Respalda el registro acumulador</div></div>
+            <div class="fsm-state"><div class="fsm-num">S3</div><div class="fsm-name">SAVE PC</div><div class="fsm-desc">Guarda dirección PC + 1</div></div>
+            <div class="fsm-state"><div class="fsm-num">S4</div><div class="fsm-name">LOAD ISR</div><div class="fsm-desc">Carga dirección base de la ISR</div></div>
+            <div class="fsm-state"><div class="fsm-num">S5</div><div class="fsm-name">EXECUTE</div><div class="fsm-desc">Ejecución activa de la ISR</div></div>
+            <div class="fsm-state"><div class="fsm-num">S6</div><div class="fsm-name">RESTORE</div><div class="fsm-desc">Restaura ACC y PC originales</div></div>
+            <div class="fsm-state"><div class="fsm-num">S7</div><div class="fsm-name">RESUME</div><div class="fsm-desc">Reanuda la GCM del procesador</div></div>
         </div>
-
         <div class="proj-img-wrap">
-            <img src="../assets/img/nvic/state_diagram.png" alt="Diagrama de estados FSM del NVIC" />
-            <div class="proj-img-caption">
-                <span>Fig. 1</span>Diagrama de estados completo del controlador NVIC
-            </div>
+            <img src="../assets/img/nvic/state_diagram.png" alt="Diagrama de estados FSM" />
+            <div class="proj-img-caption"><span>Fig. 1</span>Diagrama de estados completo del controlador NVIC</div>
         </div>
     </div>
 
     <div class="proj-divider"></div>
 
-    <!-- 04 GPIO -->
     <div class="proj-block reveal">
         <p class="block-label">Periférico de E/S</p>
-        <h2>MÓDULO GPIO</h2>
-        <p>
-            El GPIO fue desarrollado como módulo configurable en modo <strong>entrada</strong>
-            o <strong>salida</strong> a través del ISA extendido. Durante la simulación se
-            detectaron problemas de alta impedancia en el bus bidireccional, resueltos mediante
-            un rediseño de la arquitectura interna con lógica de habilitación de tres estados.
-        </p>
-
+        <h2>Módulo GPIO</h2>
+        <p>El GPIO fue desarrollado como módulo configurable en modo <strong>entrada</strong> o <strong>salida</strong> a través del ISA extendido. Durante la simulación se detectaron problemas de alta impedancia en el bus bidireccional, resueltos mediante un rediseño con lógica de habilitación de tres estados.</p>
         <div class="proj-img-wrap">
-            <img src="../assets/img/nvic/GPIO_Q.png" alt="Diagrama interno del módulo GPIO" />
-            <div class="proj-img-caption">
-                <span>Fig. 2</span>Arquitectura interna del módulo GPIO con control de tres estados
-            </div>
+            <img src="../assets/img/nvic/GPIO_Q.png" alt="Diagrama GPIO" />
+            <div class="proj-img-caption"><span>Fig. 2</span>Arquitectura interna del módulo GPIO con control de tres estados</div>
         </div>
     </div>
 
     <div class="proj-divider"></div>
 
-    <!-- 05 ISA -->
     <div class="proj-block reveal">
         <p class="block-label">Conjunto de instrucciones</p>
-        <h2>EXTENSIÓN DEL ISA</h2>
-        <p>
-            Se añadieron instrucciones al conjunto base del procesador para soportar
-            la gestión de interrupciones y el control del periférico GPIO.
-        </p>
-
+        <h2>Extensión del ISA</h2>
+        <p>Se añadieron instrucciones al conjunto base del procesador para soportar la gestión de interrupciones y el control del periférico GPIO.</p>
         <table class="isa-table">
             <thead>
-                <tr>
-                    <th>Instrucción</th>
-                    <th>Opcode</th>
-                    <th>Descripción</th>
-                    <th>Afecta</th>
-                </tr>
+                <tr><th>Instrucción</th><th>Opcode</th><th>Descripción</th><th>Afecta</th></tr>
             </thead>
             <tbody>
-                <tr>
-                    <td class="op">EI</td>
-                    <td>0xE0</td>
-                    <td class="desc-cell">Habilitar interrupciones globales</td>
-                    <td>NVIC</td>
-                </tr>
-                <tr>
-                    <td class="op">DI</td>
-                    <td>0xE1</td>
-                    <td class="desc-cell">Deshabilitar interrupciones globales</td>
-                    <td>NVIC</td>
-                </tr>
-                <tr>
-                    <td class="op">CLRIRQ</td>
-                    <td>0xE2</td>
-                    <td class="desc-cell">Limpiar bandera de interrupción pendiente</td>
-                    <td>NVIC</td>
-                </tr>
-                <tr>
-                    <td class="op">GPIO_IN</td>
-                    <td>0xF0</td>
-                    <td class="desc-cell">Configurar GPIO como entrada</td>
-                    <td>GPIO</td>
-                </tr>
-                <tr>
-                    <td class="op">GPIO_OUT</td>
-                    <td>0xF1</td>
-                    <td class="desc-cell">Configurar GPIO como salida</td>
-                    <td>GPIO</td>
-                </tr>
-                <tr>
-                    <td class="op">CLK_EN</td>
-                    <td>0xF2</td>
-                    <td class="desc-cell">Habilitar reloj del módulo GPIO</td>
-                    <td>GPIO</td>
-                </tr>
-                <tr>
-                    <td class="op">CLK_DIS</td>
-                    <td>0xF3</td>
-                    <td class="desc-cell">Deshabilitar reloj del módulo GPIO</td>
-                    <td>GPIO</td>
-                </tr>
+                <tr><td class="op">EI</td><td>0xE0</td><td class="desc-cell">Habilitar interrupciones globales</td><td>NVIC</td></tr>
+                <tr><td class="op">DI</td><td>0xE1</td><td class="desc-cell">Deshabilitar interrupciones globales</td><td>NVIC</td></tr>
+                <tr><td class="op">CLRIRQ</td><td>0xE2</td><td class="desc-cell">Limpiar bandera de interrupción pendiente</td><td>NVIC</td></tr>
+                <tr><td class="op">GPIO_IN</td><td>0xF0</td><td class="desc-cell">Configurar GPIO como entrada</td><td>GPIO</td></tr>
+                <tr><td class="op">GPIO_OUT</td><td>0xF1</td><td class="desc-cell">Configurar GPIO como salida</td><td>GPIO</td></tr>
+                <tr><td class="op">CLK_EN</td><td>0xF2</td><td class="desc-cell">Habilitar reloj del módulo GPIO</td><td>GPIO</td></tr>
+                <tr><td class="op">CLK_DIS</td><td>0xF3</td><td class="desc-cell">Deshabilitar reloj del módulo GPIO</td><td>GPIO</td></tr>
             </tbody>
         </table>
     </div>
 
     <div class="proj-divider"></div>
 
-    <!-- 06 VALIDACIÓN -->
     <div class="proj-block reveal">
         <p class="block-label">Validación funcional</p>
-        <h2>SIMULACIONES</h2>
-        <p>
-            Se realizaron simulaciones funcionales en Quartus para verificar el comportamiento
-            del sistema en los tres modos de operación críticos del diseño.
-        </p>
-
+        <h2>Simulaciones</h2>
+        <p>Simulaciones funcionales en Quartus para verificar el comportamiento del sistema en los tres modos de operación críticos.</p>
         <div class="sim-tabs">
             <div class="sim-tab active" data-tab="entrada">GPIO Entrada</div>
             <div class="sim-tab" data-tab="salida">GPIO Salida</div>
@@ -734,43 +183,25 @@
         </div>
         <div class="sim-panels">
             <div class="sim-panel active" id="tab-entrada">
-                <img src="../assets/img/nvic/GPIO_Entrada.PNG" alt="Simulación GPIO modo entrada" />
-                <p class="sim-panel-desc">
-                    El GPIO se configura como <strong>entrada</strong>. El valor leído desde
-                    el periférico (<strong>60</strong>) es cargado al procesador y sumado con
-                    el valor <strong>9</strong> almacenado en memoria de datos, obteniendo
-                    como resultado <strong>69</strong> en el acumulador. Se verifica la correcta
-                    lectura y procesamiento de datos externos.
-                </p>
+                <img src="../assets/img/nvic/GPIO_Entrada.PNG" alt="GPIO modo entrada" />
+                <p class="sim-panel-desc">El GPIO se configura como <strong>entrada</strong>. El valor leído (<strong>60</strong>) se carga al procesador y se suma con <strong>9</strong> en memoria de datos, obteniendo <strong>69</strong> en el acumulador.</p>
             </div>
             <div class="sim-panel" id="tab-salida">
-                <img src="../assets/img/nvic/GPIO_Salida.PNG" alt="Simulación GPIO modo salida" />
-                <p class="sim-panel-desc">
-                    El GPIO se configura como <strong>salida</strong>, exponiendo en sus pines
-                    el contenido del registro <strong>ACC</strong>. Se observa que las señales
-                    de salida del acumulador y del GPIO coinciden una vez completada la
-                    configuración del periférico, validando la ruta de datos de escritura.
-                </p>
+                <img src="../assets/img/nvic/GPIO_Salida.PNG" alt="GPIO modo salida" />
+                <p class="sim-panel-desc">El GPIO se configura como <strong>salida</strong>, exponiendo el contenido del <strong>ACC</strong> en sus pines. Las señales coinciden una vez completada la configuración del periférico.</p>
             </div>
             <div class="sim-panel" id="tab-irq">
-                <img src="../assets/img/nvic/GPIO_NVIC.PNG" alt="Simulación de interrupción NVIC" />
-                <p class="sim-panel-desc">
-                    Con el GPIO en modo entrada y el mecanismo de interrupción habilitado,
-                    se observa el almacenamiento de <strong>PC + 1</strong> y el contenido
-                    del <strong>ACC</strong> durante la activación de la IRQ. Una vez finalizada
-                    la rutina de servicio, el sistema restaura correctamente el contexto y
-                    reanuda la ejecución normal del programa principal sin pérdida de estado.
-                </p>
+                <img src="../assets/img/nvic/GPIO_NVIC.PNG" alt="Interrupción NVIC" />
+                <p class="sim-panel-desc">Con la interrupción habilitada se observa el almacenamiento de <strong>PC + 1</strong> y el <strong>ACC</strong>. Al finalizar la ISR el sistema restaura el contexto y reanuda la ejecución normal.</p>
             </div>
         </div>
     </div>
 
     <div class="proj-divider"></div>
 
-    <!-- 07 TECNOLOGÍAS -->
     <div class="proj-block reveal">
         <p class="block-label">Stack técnico</p>
-        <h2>TECNOLOGÍAS</h2>
+        <h2>Tecnologías</h2>
         <div class="tech-row">
             <span class="stack-tag">VHDL (RTL)</span>
             <span class="stack-tag">Intel Quartus</span>
@@ -785,44 +216,23 @@
 
     <div class="proj-divider"></div>
 
-    <!-- 08 CONCLUSIÓN -->
     <div class="proj-block reveal">
         <p class="block-label">Reflexión final</p>
-        <h2>CONCLUSIÓN</h2>
-        <p>
-            El uso de diagramas de bloques y máquinas de estados permitió describir de forma
-            clara la arquitectura del sistema y facilitar la comprensión del controlador de
-            interrupciones antes de escribir una sola línea de VHDL.
-        </p>
-        <p>
-            La integración de NVIC y GPIO profundizó el entendimiento de conceptos de
-            arquitectura digital a bajo nivel: manejo de interrupciones, guardado y restauración
-            de contexto, y coordinación entre periféricos y unidad de control.
-        </p>
-        <p>
-            Este proyecto fortaleció las habilidades en diseño RTL y proporcionó experiencia
-            práctica en metodologías de desarrollo y documentación de sistemas digitales —
-            habilidades directamente transferibles al diseño de futuros sistemas embebidos.
-        </p>
+        <h2>Conclusión</h2>
+        <p>El uso de diagramas de bloques y máquinas de estados permitió describir la arquitectura del sistema de forma clara antes de escribir una sola línea de VHDL.</p>
+        <p>La integración de NVIC y GPIO profundizó el entendimiento de arquitectura digital a bajo nivel: manejo de interrupciones, guardado y restauración de contexto, y coordinación entre periféricos y unidad de control.</p>
     </div>
 
-    <!-- CTA PDF -->
     <div class="proj-cta reveal">
         <div class="proj-cta-text">
-            <h3>DOCUMENTACIÓN COMPLETA</h3>
-            <p>
-                Arquitectura detallada, diagramas de estados, descripción del ISA
-                y resultados de simulación en el reporte técnico completo.
-            </p>
+            <h3>Documentación Completa</h3>
+            <p>Arquitectura detallada, diagramas de estados, ISA y resultados de simulación.</p>
         </div>
-        <a href="../assets/pdf/technical-reports/NVIC_Nw.pdf" target="_blank" class="btn-primary">
-            Ver reporte PDF →
-        </a>
+        <a href="../assets/pdf/technical-reports/NVIC_Nw.pdf" target="_blank" class="btn-primary">Ver reporte PDF →</a>
     </div>
 
-</div><!-- /proj-content -->
+</div>
 
-<!-- ── BOTTOM NAV ── -->
 <div class="proj-nav">
     <a href="../index.html#projects" class="back">← Todos los proyectos</a>
     <a href="k8s.html">Siguiente: Kubernetes Hardening →</a>
@@ -830,7 +240,6 @@
 
 <script src="../assets/js/script.js"></script>
 <script>
-    /* ── Simulation tabs ── */
     document.querySelectorAll('.sim-tab').forEach(tab => {
         tab.addEventListener('click', () => {
             document.querySelectorAll('.sim-tab').forEach(t => t.classList.remove('active'));
