@@ -102,14 +102,21 @@
     <div class="proj-block reveal">
         <p class="block-label">Diseño de infraestructura</p>
         <h2>Arquitectura Objetivo</h2>
+        <div class="proj-img-wrap">
+        <img src="../assets/img/k8s/arquitectura.png" alt="Diagrama de arquitectura Kubernetes" />
+        <div class="proj-img-caption">
+        <span>Fig. 0</span>
+        Arquitectura general del sistema — flujo desde Ingress hasta almacenamiento y observabilidad
+    </div>
+</div>
         <p>El entorno se dividió lógicamente aislando la aplicación en el namespace <code>proyecto-web</code> y la telemetría en <code>logging</code>. El tráfico ingresa vía un Ingress Controller con terminación TLS.</p>
         <div class="arch-grid cols-2">
             <div class="arch-card">
-                <img src="../assets/img/k8s/wp-https.png" alt="WordPress con HTTPS" class="wide" />
+                <img src="../assets/img/k8s/https.png" alt="WordPress con HTTPS" class="wide" />
                 <div class="arch-card-label"><span>01</span>Frontend — Ingress TLS & WordPress</div>
             </div>
             <div class="arch-card">
-                <img src="../assets/img/k8s/pvc-bound.png" alt="PVC Bound NFS" class="wide" />
+                <img src="../assets/img/k8s/PVC.png" alt="PVC Bound NFS" class="wide" />
                 <div class="arch-card-label"><span>02</span>Backend — MySQL & Persistent Storage (NFS)</div>
             </div>
         </div>
@@ -139,7 +146,7 @@
 kubectl run test-ext --image=alpine --restart=Never -- sleep 60
 kubectl exec test-ext -- nc -zv mysql-service.proyecto-web.svc.cluster.local 3306
 
-# RESULTADO: Timeout / Connection refused ✅</code></pre>
+# RESULTADO: Timeout / Connection refused</code></pre>
         <div class="proj-img-wrap">
             <img src="../assets/img/k8s/network-block.png" alt="Bloqueo de red" />
             <div class="proj-img-caption"><span>Fig. 1</span>Bloqueo de conexión externa y acceso permitido solo desde WordPress</div>

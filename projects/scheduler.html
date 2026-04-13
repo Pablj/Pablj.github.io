@@ -9,12 +9,188 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/style.css" />
     <link rel="stylesheet" href="../assets/css/projects.css" />
+
     <style>
+        /* ── Número decorativo hero ── */
         #proj-hero::after { content: '04'; }
+
+        /* ── Variables locales de respaldo (por si style.css no carga en preview) ── */
+        :root {
+            --plum:        #2d1b3d;
+            --berry:       #a44a7a;
+            --lavender:    #b07ab0;
+            --periwinkle:  #7b87cc;
+            --sky:         #a8c8e8;
+            --panel:       #faf7fb;
+            --cream:       #f5f0f8;
+            --cream-dark:  #ede6f2;
+            --border:      rgba(45,27,61,0.10);
+            --border-dark: rgba(45,27,61,0.22);
+            --text-mid:    #4a3558;
+            --muted:       #8a7898;
+            --display:     'Syne', sans-serif;
+            --serif:       'Cormorant Garamond', Georgia, serif;
+            --mono:        'DM Mono', monospace;
+            --nav-h:       64px;
+            --pad-x:       clamp(1.5rem, 6vw, 5rem);
+        }
+
+        /* ── Código: highlight mínimo inline ── */
+        .kw  { color: #a8d8ff; }
+        .fn  { color: #f0c080; }
+        .cm  { color: #8a9a7a; font-style: italic; }
+        .str { color: #f08080; }
+        .nm  { color: #d4a0ff; }
+
+        /* ── Pipeline / timeline de ejecución ── */
+        .pipeline {
+            display: flex;
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        .pipe-step {
+            background: var(--panel);
+            flex: 1;
+            min-width: 160px;
+            padding: 1.4rem 1.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            transition: background 0.2s;
+        }
+        .pipe-step:hover { background: #fdf5ff; }
+        .pipe-n {
+            font-family: var(--display);
+            font-size: 2.4rem;
+            color: transparent;
+            -webkit-text-stroke: 1.5px var(--lavender);
+            line-height: 1;
+        }
+        .pipe-title {
+            font-family: var(--mono);
+            font-size: 0.68rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--plum);
+            font-weight: 500;
+        }
+        .pipe-desc {
+            font-family: var(--serif);
+            font-size: 0.88rem;
+            color: var(--muted);
+            font-weight: 300;
+            line-height: 1.55;
+        }
+
+        /* ── Tabla de resultados ── */
+        .res-table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid var(--border);
+            margin: 1.5rem 0;
+            border-radius: 4px;
+            overflow: hidden;
+            font-size: 0.82rem;
+        }
+        .res-table caption {
+            font-family: var(--mono);
+            font-size: 0.62rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--berry);
+            text-align: left;
+            padding: 0.6rem 0 0.4rem;
+            caption-side: top;
+        }
+        .res-table caption::before { content: '— '; }
+        .res-table th {
+            background: var(--cream-dark);
+            color: var(--muted);
+            font-family: var(--mono);
+            font-size: 0.62rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-dark);
+            font-weight: 400;
+        }
+        .res-table td {
+            font-family: var(--mono);
+            font-size: 0.76rem;
+            padding: 0.72rem 1rem;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-mid);
+        }
+        .res-table tr:last-child td { border-bottom: none; }
+        .res-table tr:hover td { background: #fdf5ff; }
+        .res-table .hi { color: var(--berry); font-weight: 500; }
+        .res-table .sep td {
+            background: var(--cream-dark);
+            color: var(--muted);
+            font-size: 0.6rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 0.4rem 1rem;
+        }
+
+        /* ── Grid de tablas 2 col ── */
+        .tables-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        @media (max-width: 800px) {
+            .tables-grid { grid-template-columns: 1fr; }
+        }
+
+        /* ── Proceso operaciones badge list ── */
+        .ops-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 2rem 0;
+        }
+        .op-card {
+            background: var(--panel);
+            padding: 0.9rem 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: background 0.2s;
+        }
+        .op-card:hover { background: #fdf5ff; }
+        .op-n {
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            color: var(--berry);
+            min-width: 22px;
+        }
+        .op-name {
+            font-family: var(--serif);
+            font-size: 0.95rem;
+            color: var(--text-mid);
+            font-weight: 300;
+        }
+
+        /* ── Reveal scroll ── */
+        .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.55s ease, transform 0.55s ease; }
+        .reveal.visible { opacity: 1; transform: none; }
     </style>
 </head>
 <body>
 
+<!-- ── NAV ── -->
 <nav id="navbar">
     <div class="nav-logo">PC<em>/</em>ESE</div>
     <ul class="nav-links">
@@ -39,6 +215,7 @@
 </div>
 <div class="drawer-overlay" id="drawerOverlay"></div>
 
+<!-- ── HERO ── -->
 <section id="proj-hero">
     <div class="proj-hero-meta">
         <div class="proj-breadcrumb">
@@ -52,8 +229,9 @@
         <h1>SJF<span class="accent-line">SCHEDULER</span></h1>
         <p class="proj-hero-sub">
             Simulador de planificación de procesos basado en el algoritmo
-            <strong>Shortest Job First</strong>, implementando <strong>Context Switching</strong>
-            y gestión dinámica de quantums en C.
+            <strong>Shortest Job First</strong>, implementando <strong>Context Switching</strong>,
+            gestión de quantums y colas FIFO en C puro.
+            Desarrollado como proyecto académico para Sistemas Operativos en Tiempo Real — UNAM FI.
         </p>
         <div class="proj-meta-row">
             <div class="proj-meta-item">
@@ -69,86 +247,462 @@
                 <span class="m-value">Sistemas Operativos</span>
             </div>
             <div class="proj-meta-item">
+                <span class="m-label">Institución</span>
+                <span class="m-value">UNAM — FI</span>
+            </div>
+            <div class="proj-meta-item">
                 <span class="m-label">Reporte</span>
-                <span class="m-value"><a href="../assets/pdf/technical-reports/schedule.pdf" target="_blank">Ver PDF →</a></span>
+                <span class="m-value"><a href="../assets/pdf/technical-reports/planificador.pdf" target="_blank">Ver PDF →</a></span>
             </div>
         </div>
     </div>
 </section>
 
+<!-- ── CONTENIDO ── -->
 <div class="proj-content">
 
+    <!-- ── 1. OBJETIVO ── -->
     <div class="proj-block reveal">
-        <p class="block-label">Estructura del sistema</p>
-        <h2>Arquitectura del Planificador</h2>
-        <p>El sistema gestiona procesos mediante una arquitectura de colas FIFO y un selector basado en el tiempo de ráfaga más corto, con soporte para quantums y cambio de contexto entre procesos activos.</p>
+        <p class="block-label">Objetivo</p>
+        <h2>¿Qué se buscó entender?</h2>
+        <p>
+            Comprender el funcionamiento de los sistemas operativos a través de la simulación de un planificador específico,
+            explorando su gestión de recursos, la política de selección de procesos y su operación interna —
+            desde la medición de tiempos de ráfaga hasta el manejo de contextos interrumpidos.
+        </p>
+    </div>
+
+    <div class="proj-divider"></div>
+
+    <!-- ── 2. INTRODUCCIÓN / FUNDAMENTO ── -->
+    <div class="proj-block reveal">
+        <p class="block-label">Fundamento teórico</p>
+        <h2>El Planificador SJF</h2>
+        <p>
+            El planificador (<em>scheduler</em>) es la función fundamental de un sistema operativo:
+            debe decidir a qué proceso le cede los recursos del CPU cuando varios están listos para ejecutarse.
+            Existen múltiples algoritmos de planificación; este proyecto se concentra en el
+            <strong>Shortest Job First (SJF)</strong>.
+        </p>
+        <p>
+            En SJF, el proceso con la <strong>menor duración estimada</strong> recibe prioridad de ejecución.
+            Si dos procesos llegan al mismo tiempo, el de ráfaga más corta se ejecuta primero, minimizando
+            el tiempo de espera promedio del sistema.
+        </p>
+
+        <!-- Pipeline visual de los 4 algoritmos -->
+        <div class="pipeline">
+            <div class="pipe-step">
+                <div class="pipe-n">01</div>
+                <div class="pipe-title">Round Robin</div>
+                <div class="pipe-desc">Turno fijo entre procesos, sin importar duración.</div>
+            </div>
+            <div class="pipe-step">
+                <div class="pipe-n">02</div>
+                <div class="pipe-title">FCFS</div>
+                <div class="pipe-desc">First Come, First Served — orden de llegada puro.</div>
+            </div>
+            <div class="pipe-step" style="background:#fdf5ff; border-left: 3px solid var(--berry);">
+                <div class="pipe-n">03</div>
+                <div class="pipe-title">SJF ← este</div>
+                <div class="pipe-desc">Prioridad al proceso de menor duración esperada.</div>
+            </div>
+            <div class="pipe-step">
+                <div class="pipe-n">04</div>
+                <div class="pipe-title">Priority</div>
+                <div class="pipe-desc">Cada proceso tiene un nivel de prioridad asignado.</div>
+            </div>
+        </div>
+
         <div class="arch-grid cols-2">
             <div class="arch-card">
-                <img src="../assets/img/scheduler/dIagrama.png" alt="Arquitectura SJF" class="wide" />
-                <div class="arch-card-label"><span>01</span>Flujo General de Selección</div>
+                <img src="../assets/img/scheduler/Diagrama en blanco.png" alt="Flujo general SJF" class="wide" />
+                <div class="arch-card-label"><span>01</span>Flujo general de selección SJF</div>
             </div>
             <div class="arch-card">
-                <img src="../assets/img/scheduler/Diagrama en blanco.png" alt="Lógica quantums" class="wide" />
-                <div class="arch-card-label"><span>02</span>Lógica de Gestión de Quantums</div>
+                <img src="../assets/img/scheduler/SFJ.jpg" alt="Ejemplo de ejecución SJF" class="wide" />
+                <div class="arch-card-label"><span>02</span>Diagrama de planificación de tareas en el tiempo</div>
+            </div>
+        </div>
+        <p>
+            En el ejemplo anterior, el proceso P2 (menor duración) se ejecuta primero, seguido de P3, P4 y
+            finalmente P1 — el de mayor carga. El resultado es una cola de espera mínima para los procesos cortos.
+        </p>
+    </div>
+
+    <div class="proj-divider"></div>
+
+    <!-- ── 3. PLANTEAMIENTO / MODIFICACIONES ── -->
+    <div class="proj-block reveal">
+        <p class="block-label">Planteamiento del problema</p>
+        <h2>Más allá del SJF puro: quantums y context switching</h2>
+        <p>
+            El SJF clásico asume que los procesos corren hasta terminar. Para este proyecto se incorporaron
+            dos modificaciones que acercan la simulación a un sistema operativo real:
+        </p>
+
+        <ul class="req-list">
+            <li data-n="M1">
+                <strong>Quantums de tiempo</strong> — cada proceso tiene un tiempo máximo de CPU por turno.
+                Si el proceso no termina dentro del quantum, se interrumpe y vuelve a la cola.
+            </li>
+            <li data-n="M2">
+                <strong>Salvaguarda de contexto</strong> — al interrumpir un proceso, su estado (registros,
+                variables de trabajo, índice de progreso) se almacena en un <code>stack</code> para
+                ser restaurado en su próxima ejecución.
+            </li>
+            <li data-n="M3">
+                <strong>Re-inserción en cola FIFO</strong> — el proceso interrumpido regresa ordenado
+                a la pila según su tiempo residual, manteniendo la política SJF.
+            </li>
+        </ul>
+
+        <div class="arch-grid cols-2">
+            <div class="arch-card">
+                <img src="../assets/img/scheduler/Proceso_SFJ.jpg" alt="Proceso con quantum" class="wide" />
+                <div class="arch-card-label"><span>03</span>Quantum excedido — P2 y P3 se interrumpen y guardan contexto</div>
+            </div>
+            <div class="arch-card">
+                <img src="../assets/img/scheduler/dIagrama.png" alt="Diagrama modificado con quantums" class="wide" />
+                <div class="arch-card-label"><span>04</span>Diagrama de flujo modificado con gestión de quantums</div>
             </div>
         </div>
     </div>
 
     <div class="proj-divider"></div>
 
+    <!-- ── 4. DESARROLLO ── -->
     <div class="proj-block reveal">
-        <p class="block-label">Desafíos técnicos</p>
-        <h2>Requerimientos</h2>
-        <p>El simulador debía replicar con fidelidad el comportamiento de un planificador real de sistema operativo, incluyendo la medición de tiempos y la prevención del monopolio de CPU.</p>
-        <ul class="req-list">
-            <li data-n="R1">Medición de tiempos de ejecución mediante la librería <strong>time.h</strong></li>
-            <li data-n="R2">Asignación de <strong>quantums</strong> para prevenir el monopolio de CPU por procesos largos</li>
-            <li data-n="R3">Implementación de salvaguarda de estado (<strong>Context Switching</strong>) entre procesos</li>
-        </ul>
+        <p class="block-label">Desarrollo</p>
+        <h2>Implementación en C</h2>
+        <p>
+            El sistema opera sobre <strong>dos vectores de 1,000 elementos</strong> (A y B) y ejecuta
+            diez operaciones matemáticas sobre ellos. Cada operación es un proceso independiente
+            cuyo tiempo de ráfaga se mide antes del primer ciclo del planificador.
+        </p>
+
+        <!-- Operaciones -->
+        <div class="ops-grid">
+            <div class="op-card"><span class="op-n">P01</span><span class="op-name">Energía del Vector A</span></div>
+            <div class="op-card"><span class="op-n">P02</span><span class="op-name">Energía del Vector B</span></div>
+            <div class="op-card"><span class="op-n">P03</span><span class="op-name">Producto Punto</span></div>
+            <div class="op-card"><span class="op-n">P04</span><span class="op-name">Distancia Euclidiana</span></div>
+            <div class="op-card"><span class="op-n">P05</span><span class="op-name">Resta de Vectores</span></div>
+            <div class="op-card"><span class="op-n">P06</span><span class="op-name">Producto de Vectores</span></div>
+            <div class="op-card"><span class="op-n">P07</span><span class="op-name">División de Vectores</span></div>
+            <div class="op-card"><span class="op-n">P08</span><span class="op-name">Suma de Vectores</span></div>
+            <div class="op-card"><span class="op-n">P09</span><span class="op-name">Convolución cuadrada</span></div>
+            <div class="op-card"><span class="op-n">P10</span><span class="op-name">Convolución triangular</span></div>
+        </div>
+
+        <!-- Medición de tiempos -->
+        <h3 style="font-family:var(--display);font-size:1.5rem;color:var(--plum);margin:2rem 0 0.8rem;letter-spacing:0.03em;">
+            1 — Medición de tiempos de ráfaga
+        </h3>
+        <p>
+            Antes de planificar, se ejecuta cada proceso una vez completo usando <code>clock()</code>
+            de <code>time.h</code> para registrar su duración real. Este tiempo determina el orden de ejecución.
+        </p>
+<pre><code><span class="kw">for</span> (<span class="kw">int</span> i = <span class="nm">0</span>; i &lt; <span class="nm">10</span>; i++) {
+    start = <span class="fn">clock</span>();
+
+    procesos[i](A, B);   <span class="cm">// ejecutar sin quantum (medición pura)</span>
+
+    end = <span class="fn">clock</span>();
+    tiempos[i] = ((<span class="kw">double</span>)(end - start)) / CLOCKS_PER_SEC;
+}</code></pre>
+
+        <!-- Quantums -->
+        <h3 style="font-family:var(--display);font-size:1.5rem;color:var(--plum);margin:2rem 0 0.8rem;letter-spacing:0.03em;">
+            2 — Asignación de quantums
+        </h3>
+        <p>
+            Las operaciones de convolución —las más costosas— reciben un quantum más amplio
+            (<code>10 000</code> ciclos) para no dominar el planificador. El resto comparte un
+            valor uniforme configurable.
+        </p>
+<pre><code><span class="kw">void</span> <span class="fn">asignar_quantums</span>(<span class="kw">int</span> quantum) {
+    datos.suma_vectores.quantum        = quantum;
+    datos.resta_vectores.quantum       = quantum;
+    datos.producto_vectores.quantum    = quantum;
+    datos.division_vectores.quantum    = quantum;
+    datos.distancia_euclidiana.quantum = quantum;
+    datos.producto_punto.quantum       = quantum;
+    datos.energia_vector_A.quantum     = quantum;
+    datos.energia_vector_B.quantum     = quantum;
+    datos.convolucion_cuadrada.quantum   = <span class="nm">10000</span>;  <span class="cm">// mayor costo</span>
+    datos.convolucion_triangular.quantum = <span class="nm">10000</span>;
+}</code></pre>
+
+        <!-- Estructura FIFO -->
+        <h3 style="font-family:var(--display);font-size:1.5rem;color:var(--plum);margin:2rem 0 0.8rem;letter-spacing:0.03em;">
+            3 — Cola FIFO y estructura de contexto
+        </h3>
+        <p>
+            Se definió una estructura de pila FIFO para mantener el orden de ejecución y otra
+            para almacenar el estado (<em>context</em>) de cada proceso interrumpido.
+        </p>
+<pre><code><span class="cm">// Cola de procesos ordenados por tiempo de ráfaga</span>
+<span class="kw">typedef struct</span> {
+    Operacion funciones[<span class="nm">10</span>];
+    <span class="kw">int</span> inicio;   <span class="cm">// índice frontal FIFO</span>
+    <span class="kw">int</span> final;    <span class="cm">// índice trasero FIFO</span>
+    <span class="kw">int</span> tamano;
+} Pila_Funciones;
+
+<span class="cm">// Estado por proceso (context switching)</span>
+<span class="kw">typedef struct</span> {
+    ProcesoEstado suma_vectores;
+    ProcesoEstado resta_vectores;
+    ProcesoEstado producto_vectores;
+    ProcesoEstado division_vectores;
+    ProcesoEstado distancia_euclidiana;
+    ProcesoEstado producto_punto;
+    ProcesoEstado convolucion_cuadrada;
+    ProcesoEstado convolucion_triangular;
+    ProcesoEstado energia_vector_A;
+    ProcesoEstado energia_vector_B;
+} DatosProcesos;</code></pre>
+
+        <!-- Loop principal -->
+        <h3 style="font-family:var(--display);font-size:1.5rem;color:var(--plum);margin:2rem 0 0.8rem;letter-spacing:0.03em;">
+            4 — Ciclo principal del planificador
+        </h3>
+        <p>
+            El loop extrae el proceso al frente de la cola y lo ejecuta.
+            Si retorna <code>0</code> (quantum agotado, proceso incompleto), lo re-inserta con su contexto guardado.
+            Si retorna <code>1</code> (proceso finalizado), avanza al siguiente.
+        </p>
+<pre><code><span class="kw">while</span> (!<span class="fn">esta_vacia</span>(&amp;pila)) {
+    Operacion f = <span class="fn">sacar_funcion</span>(&amp;pila);
+
+    <span class="kw">if</span> (f != <span class="nm">NULL</span>) {
+        resultado = <span class="fn">f</span>(A, B);   <span class="cm">// retorna 0 si no terminó</span>
+
+        <span class="kw">if</span> (resultado == <span class="nm">0</span>) {
+            <span class="fn">agregar_funcion</span>(&amp;pila, f);  <span class="cm">// vuelve a la cola</span>
+        }
+        <span class="cm">// si resultado == 1 → proceso terminado, no se re-inserta</span>
+    }
+}</code></pre>
     </div>
 
     <div class="proj-divider"></div>
 
+    <!-- ── 5. RESULTADOS VISUALES ── -->
     <div class="proj-block reveal">
-        <p class="block-label">Validación funcional</p>
-        <h2>Resultados de Ejecución</h2>
-        <p>Las pruebas funcionales verificaron la correcta rotación de procesos, el respeto de los quantums asignados y la consistencia del cambio de contexto durante la ejecución.</p>
-        <div class="proj-img-wrap">
-            <img src="../assets/img/scheduler/C_C3.jpg" alt="Salida consola SJF" />
-            <div class="proj-img-caption"><span>Fig. 1</span>Salida por consola del Scheduler mostrando la rotación de procesos</div>
+        <p class="block-label">Ejecución</p>
+        <h2>Capturas del Sistema</h2>
+        <p>
+            La simulación corre en tres fases visibles: inicialización de vectores y quantums,
+            primera corrida para medir tiempos de ráfaga, y el bucle de planificación con rotación de procesos.
+        </p>
+
+        <!-- Tabs de fases -->
+        <div class="sim-tabs" id="simTabs">
+            <div class="sim-tab active" data-panel="p1">Fase 1 — Init</div>
+            <div class="sim-tab" data-panel="p2">Fase 2 — Medición</div>
+            <div class="sim-tab" data-panel="p3">Fase 3 — Scheduler</div>
+        </div>
+        <div class="sim-panels">
+            <div class="sim-panel active" id="p1">
+                <img src="../assets/img/scheduler/C_C1.jpg" alt="Inicialización vectores y quantums" />
+                <p class="sim-panel-desc">
+                    <strong>Inicialización:</strong> se crean los vectores A y B con valores aleatorios
+                    y se asignan los quantums a cada uno de los diez procesos.
+                </p>
+            </div>
+            <div class="sim-panel" id="p2">
+                <img src="../assets/img/scheduler/C_C2.jpg" alt="Primera corrida y ordenamiento" />
+                <p class="sim-panel-desc">
+                    <strong>Primera corrida:</strong> cada proceso se ejecuta completo una vez para medir su tiempo de ráfaga.
+                    El resultado es un arreglo <code>tiempos[]</code> que determina el orden SJF.
+                </p>
+            </div>
+            <div class="sim-panel" id="p3">
+                <img src="../assets/img/scheduler/C_C3.jpg" alt="Ejecución del planificador" />
+                <p class="sim-panel-desc">
+                    <strong>Planificador activo:</strong> los procesos rotan respetando quantums.
+                    Cuando un proceso agota su quantum, guarda contexto y regresa a la cola.
+                    La consola muestra cada cambio de proceso en tiempo real.
+                </p>
+            </div>
         </div>
     </div>
 
     <div class="proj-divider"></div>
 
+    <!-- ── 6. RESULTADOS NUMÉRICOS ── -->
+    <div class="proj-block reveal">
+        <p class="block-label">Resultados experimentales</p>
+        <h2>Tablas Comparativas</h2>
+        <p>
+            Los resultados verifican que el context switching funciona correctamente:
+            los valores parciales (índice ~5000) y finales (índice ~10000) son consistentes
+            con el cómputo continuo esperado para cada operación.
+        </p>
+
+        <!-- Tabla 1 — Escalares -->
+        <table class="res-table">
+            <caption>Energía, Producto Punto y Distancia Euclidiana</caption>
+            <thead>
+                <tr>
+                    <th>Parámetro</th>
+                    <th>Valor</th>
+                    <th>Rango de índices</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="sep"><td colspan="3">— Resultado parcial (quantum 1)</td></tr>
+                <tr><td>Energía B</td><td class="hi">16,705,333</td><td>0 – 5000</td></tr>
+                <tr><td>Producto Punto</td><td class="hi">12,482,074</td><td>0 – 5000</td></tr>
+                <tr><td>Energía A</td><td class="hi">16,590,357</td><td>0 – 5000</td></tr>
+                <tr><td>Distancia Euclidiana</td><td class="hi">8,331,554</td><td>0 – 5000</td></tr>
+                <tr class="sep"><td colspan="3">— Resultado final (quantum 2)</td></tr>
+                <tr><td>Energía B</td><td class="hi">33,657,720</td><td>5001 – 10000</td></tr>
+                <tr><td>Producto Punto</td><td class="hi">25,014,198</td><td>5001 – 10000</td></tr>
+                <tr><td>Energía A</td><td class="hi">32,905,750</td><td>5001 – 10000</td></tr>
+                <tr><td>Distancia Euclidiana</td><td class="hi">4,066</td><td>5001 – 10000</td></tr>
+            </tbody>
+        </table>
+
+        <!-- Grid de tablas vectoriales -->
+        <div class="tables-grid">
+            <!-- Resta -->
+            <table class="res-table">
+                <caption>Resta de Vectores — últimos índices</caption>
+                <thead>
+                    <tr><th>Índice (Q1)</th><th>Resultado</th><th>Índice (Q2)</th><th>Resultado</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>4990</td><td>−42.867</td><td>9990</td><td>−36.806</td></tr>
+                    <tr><td>4991</td><td>−30.362</td><td>9991</td><td>−33.176</td></tr>
+                    <tr><td>4992</td><td>7.859</td><td>9992</td><td>−2.737</td></tr>
+                    <tr><td>4993</td><td>−12.943</td><td>9993</td><td>30.724</td></tr>
+                    <tr><td>4994</td><td>−3.468</td><td>9994</td><td>88.383</td></tr>
+                    <tr><td>4995</td><td>51.176</td><td>9995</td><td>15.633</td></tr>
+                    <tr><td>4996</td><td>−17.697</td><td>9996</td><td>40.621</td></tr>
+                    <tr><td>4997</td><td>−31.429</td><td>9997</td><td>10.316</td></tr>
+                    <tr><td>4998</td><td>−85.595</td><td>9998</td><td>11.848</td></tr>
+                    <tr><td>4999</td><td class="hi">−16.295</td><td>9999</td><td class="hi">24.445</td></tr>
+                </tbody>
+            </table>
+
+            <!-- Suma -->
+            <table class="res-table">
+                <caption>Suma de Vectores — últimos índices</caption>
+                <thead>
+                    <tr><th>Índice (Q1)</th><th>Resultado</th><th>Índice (Q2)</th><th>Resultado</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>4990</td><td>154.180</td><td>9990</td><td>57.386</td></tr>
+                    <tr><td>4991</td><td>35.739</td><td>9991</td><td>96.787</td></tr>
+                    <tr><td>4992</td><td>15.240</td><td>9992</td><td>130.720</td></tr>
+                    <tr><td>4993</td><td>43.182</td><td>9993</td><td>150.141</td></tr>
+                    <tr><td>4994</td><td>112.212</td><td>9994</td><td>93.718</td></tr>
+                    <tr><td>4995</td><td>114.789</td><td>9995</td><td>100.253</td></tr>
+                    <tr><td>4996</td><td>50.086</td><td>9996</td><td>158.161</td></tr>
+                    <tr><td>4997</td><td>142.858</td><td>9997</td><td>41.990</td></tr>
+                    <tr><td>4998</td><td>95.545</td><td>9998</td><td>139.583</td></tr>
+                    <tr><td>4999</td><td class="hi">80.093</td><td>9999</td><td class="hi">127.004</td></tr>
+                </tbody>
+            </table>
+
+            <!-- Producto -->
+            <table class="res-table">
+                <caption>Producto de Vectores — últimos índices</caption>
+                <thead>
+                    <tr><th>Índice (Q1)</th><th>Resultado</th><th>Índice (Q2)</th><th>Resultado</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>4990</td><td>5,483.485</td><td>9990</td><td>484.599</td></tr>
+                    <tr><td>4991</td><td>88.854</td><td>9991</td><td>2,066.762</td></tr>
+                    <tr><td>4992</td><td>42.620</td><td>9992</td><td>4,270.047</td></tr>
+                    <tr><td>4993</td><td>424.278</td><td>9993</td><td>5,399.571</td></tr>
+                    <tr><td>4994</td><td>3,144.892</td><td>9994</td><td>242.887</td></tr>
+                    <tr><td>4995</td><td>2,639.399</td><td>9995</td><td>2,451.581</td></tr>
+                    <tr><td>4996</td><td>548.844</td><td>9996</td><td>5,841.200</td></tr>
+                    <tr><td>4997</td><td>4,855.167</td><td>9997</td><td>414.189</td></tr>
+                    <tr><td>4998</td><td>450.562</td><td>9998</td><td>4,835.771</td></tr>
+                    <tr><td>4999</td><td class="hi">1,537.352</td><td>9999</td><td class="hi">3,883.098</td></tr>
+                </tbody>
+            </table>
+
+            <!-- División -->
+            <table class="res-table">
+                <caption>División de Vectores — últimos índices</caption>
+                <thead>
+                    <tr><th>Índice (Q1)</th><th>Resultado</th><th>Índice (Q2)</th><th>Resultado</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>4990</td><td>0.565</td><td>9990</td><td>0.218</td></tr>
+                    <tr><td>4991</td><td>0.081</td><td>9991</td><td>0.489</td></tr>
+                    <tr><td>4992</td><td>3.130</td><td>9992</td><td>0.959</td></tr>
+                    <tr><td>4993</td><td>0.539</td><td>9993</td><td>1.515</td></tr>
+                    <tr><td>4994</td><td>0.940</td><td>9994</td><td>34.132</td></tr>
+                    <tr><td>4995</td><td>2.609</td><td>9995</td><td>1.369</td></tr>
+                    <tr><td>4996</td><td>0.478</td><td>9996</td><td>1.691</td></tr>
+                    <tr><td>4997</td><td>0.639</td><td>9997</td><td>1.651</td></tr>
+                    <tr><td>4998</td><td>0.055</td><td>9998</td><td>1.186</td></tr>
+                    <tr><td>4999</td><td class="hi">0.662</td><td>9999</td><td class="hi">1.477</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="proj-divider"></div>
+
+    <!-- ── 7. STACK ── -->
     <div class="proj-block reveal">
         <p class="block-label">Stack técnico</p>
         <h2>Tecnologías</h2>
         <div class="tech-row">
             <span class="stack-tag">Lenguaje C</span>
-            <span class="stack-tag">Context Switching</span>
-            <span class="stack-tag">SJF Algorithm</span>
             <span class="stack-tag">GCC Compiler</span>
-            <span class="stack-tag">time.h</span>
+            <span class="stack-tag">SJF Algorithm</span>
+            <span class="stack-tag">Context Switching</span>
             <span class="stack-tag">FIFO Queues</span>
+            <span class="stack-tag">time.h</span>
+            <span class="stack-tag">Structs & Pointers</span>
+            <span class="stack-tag">Function Pointers</span>
         </div>
     </div>
 
+    <!-- ── CTA ── -->
     <div class="proj-cta reveal">
         <div class="proj-cta-text">
             <h3>Documentación Técnica</h3>
-            <p>Implementación completa y análisis de rendimiento del planificador en el reporte técnico.</p>
+            <p>Implementación completa, análisis de rendimiento y código fuente en el reporte formal.</p>
         </div>
-        <a href="../assets/pdf/technical-reports/schedule.pdf" target="_blank" class="btn-primary">Ver reporte PDF →</a>
+        <a href="../assets/pdf/technical-reports/planificador.pdf" target="_blank" class="btn-primary">Ver reporte PDF →</a>
     </div>
 
 </div>
 
+<!-- ── BOTTOM NAV ── -->
 <div class="proj-nav">
     <a href="../index.html#projects" class="back">← Todos los proyectos</a>
-    <a href="nvic.html">Siguiente: NVIC & GPIO →</a>
+    <a href="nvic.html">Siguiente: NVIC &amp; GPIO →</a>
 </div>
 
 <script src="../assets/js/script.js"></script>
+<script>
+    /* ── Tabs de simulación ── */
+    const tabs = document.querySelectorAll('.sim-tab');
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.sim-panel').forEach(p => p.classList.remove('active'));
+            tab.classList.add('active');
+            document.getElementById(tab.dataset.panel).classList.add('active');
+        });
+    });
+
+    /* ── Reveal on scroll ── */
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
